@@ -5,10 +5,20 @@
 
     <script type="text/javascript" src="js/index.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+    
     <style>
         html, body {
             margin: 0;
             height: 100%;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Lucida Console';
         }
 
         #myCanvas {
@@ -17,11 +27,25 @@
 
             background-color: black;
         }
+
+        #overlay {
+            position: fixed;
+            bottom: 0;
+
+            width: 100%;
+            padding: 10px;
+
+            background-color: black;
+        }
     </style>
 </head>
 <body>
-    <canvas id="myCanvas">
-        Your browser doesn't support my awesome portfolio background :(
+    <canvas id="myCanvas" width="800" height="450">
+        Your browser doesn't support my awesome portfolio :(
     </canvas>
+
+    <div id="overlay">
+        Really poor perf portfolio, these are your poor FPS <span id="fps">?</span>
+    </div>
 </body>
 </html>

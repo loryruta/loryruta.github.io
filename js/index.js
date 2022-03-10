@@ -12,10 +12,29 @@ function compileShader(shaderType, shaderSrc) {
     
     let err = gl.getShaderInfoLog(shader);
     if (err) {
-        console.error(err);
+        throw err;
     }
 
     return shader;
+}
+
+function shadertoySrcToWebglSrc(src) {
+    return `#version 300 es
+
+precision highp float;
+
+uniform float iTime;
+uniform vec2 iResolution;
+
+${src}
+
+out vec4 _fragColor;
+
+void main()
+{
+    mainImage(_fragColor, gl_FragCoord.xy);
+}
+`
 }
 
 function linkProgram(prog) {
@@ -23,7 +42,7 @@ function linkProgram(prog) {
 
     let err = gl.getProgramInfoLog(prog);
     if (err) {
-        console.error(err);
+        throw err;
     }
 }
 
@@ -44,11 +63,12 @@ class BgRenderer {
 
         this.prog = gl.createProgram();
 
-        const vertShadSrc = await (await fetch("/shaders/bg_shad.vert")).text();
+        let vertShadSrc = await (await fetch("/shaders/bg_shad.vert")).text();
         this.vertShad = compileShader(gl.VERTEX_SHADER, vertShadSrc);
         gl.attachShader(this.prog, this.vertShad);
 
-        const fragShadSrc = await (await fetch("/shaders/bg_shad.frag")).text();
+        let shadertoyShadSrc = shadertoySrcToWebglSrc(await (await fetch("/shaders/bg_shad.shadertoy.frag")).text());
+        let fragShadSrc = shadertoyShadSrc;
         this.fragShad = compileShader(gl.FRAGMENT_SHADER, fragShadSrc);
         gl.attachShader(this.prog, this.fragShad);
 
@@ -61,8 +81,8 @@ class BgRenderer {
 
         gl.useProgram(this.prog);
 
-        gl.uniform2f(gl.getUniformLocation(this.prog, 'u_resolution'), canvas.width, canvas.height);
-        gl.uniform1f(gl.getUniformLocation(this.prog, 'u_time'), performance.now() / 1000.0);
+        gl.uniform2f(gl.getUniformLocation(this.prog, 'iResolution'), canvas.width, canvas.height);
+        gl.uniform1f(gl.getUniformLocation(this.prog, 'iTime'), performance.now() / 1000.0);
 
         gl.bindVertexArray(this.screenQuadVao);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -75,9 +95,23 @@ class BgRenderer {
 
 window.addEventListener('load', function () {
     canvas = document.getElementById("myCanvas");
+    fpsEcho = document.getElementById("fps");
+
     gl = canvas.getContext("webgl2");
 
     const bgRenderer = new BgRenderer(canvas, gl);
+
+    const setFps = (fps) => {
+        fpsEcho.innerText = fps;
+    };
+
+    setFps(0);
+
+    let fpsCtr = 0;
+    setInterval(() => {
+        setFps(fpsCtr);
+        fpsCtr = 0;
+    }, 1000);
 
     const resize = () => {
         canvas.width = canvas.clientWidth;
@@ -85,12 +119,14 @@ window.addEventListener('load', function () {
 
         gl.viewport(0, 0, canvas.width, canvas.height);
     };
-
     resize();
     window.addEventListener('resize', resize);
 
     const renderCycle = () => {
         bgRenderer.render();
+        
+        fpsCtr++;
+
         window.requestAnimationFrame(renderCycle);
     };
     window.requestAnimationFrame(renderCycle);
