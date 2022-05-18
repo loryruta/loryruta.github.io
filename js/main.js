@@ -1,10 +1,13 @@
+
+let background;
+
 function main() {
     let canvas = document.getElementById("myCanvas");
     //let gl = canvas.getContext("webgl2");
     let context = canvas.getContext("2d");
 
     // 
-    const background = new AttractingCircle.Background(context);
+    background = new AttractingCircle.Background(context);
 
     // Handle resize
     const resize = () => {

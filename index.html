@@ -54,7 +54,25 @@
 
     <div id="title">
         <h1>loryruta</h1>
-        <span>Hello!</span>
+        <span id="troll">Don't absolutely click outside of this circle</span>
+
+        <script>
+            document.getElementById("myCanvas").addEventListener("click", () => {
+                setTimeout(() => { // Shitty code just to troll
+                    if (background.points.length > 0) {
+                        if (background.points.length <= 10) {
+                            document.getElementById("troll").innerText = "Oh yeah, you just did it";
+                        } else if (background.points.length <= 20) {
+                            document.getElementById("troll").innerText = "You're doing it way too much times!";
+                        } else if (background.points.length <= 30) {
+                            document.getElementById("troll").innerText = "Please stop!!!";
+                        } else {
+                            document.getElementById("troll").innerText = "There are no more messages, stop or you'll crash";
+                        }
+                    }
+                }, 1);
+            });
+        </script>
     </div>
 </body>
 </html>
