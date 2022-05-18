@@ -1,47 +1,44 @@
 function main() {
     let canvas = document.getElementById("myCanvas");
     //let gl = canvas.getContext("webgl2");
-    let drawer = canvas.getContext("2d");
+    let context = canvas.getContext("2d");
 
-    /* Handle resize */
+    // 
+    const background = new AttractingCircle.Background(context);
+
+    // Handle resize
     const resize = () => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+
+        background.renderInit();
 
         //gl.viewport(0, 0, canvas.width, canvas.height);
     };
     resize();
     window.addEventListener('resize', resize);
 
-    /* */
-    const renderer = new LorenzAttractorRenderer(drawer);
-
-    let startTime = performance.now();
-
-    /* Render cycle */
-    let dt = 0;
+    // Render loop
     let fpsCtr = 0;
-    let lastTime = -1;
-    const renderCycle = () => {
-        let curTime = performance.now();
 
-        if (curTime - startTime > 3000) {
-            renderer.render(dt);
-        }
+    let lastTime = null;
 
+    const renderCycle = async () => {
+        let now = performance.now();
+        let dt = lastTime !== null ? (now - lastTime) / 1000.0 : 0;
+    
+        background.render(dt);
         fpsCtr++;
 
-        if (lastTime > 0)
-            dt = curTime - lastTime;
-        lastTime = curTime;
+        lastTime = now;
 
         window.requestAnimationFrame(renderCycle);
     };
     window.requestAnimationFrame(renderCycle);
 
-    /* FPS */
+    // FPS clock
     const setFps = function (fps) {
-        console.log("FPS: " + fps);
+        //console.log("FPS: " + fps);
     };
 
     setFps(0);

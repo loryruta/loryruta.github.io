@@ -1,36 +1,3 @@
-class Vec3 {
-    constructor(x, y, z) {
-        this.x = x || 0;
-        this.y = y || 0;
-        this.z = z || 0;
-    }
-    
-    add(v) {
-        this.x += v.x;
-        this.y += v.y;
-        this.z += v.z;
-        return this;
-    }
-
-    mulScalar(s) {
-        this.x *= s;
-        this.y *= s;
-        this.z *= s;
-        return this;
-    }
-
-    mul(v) {
-        this.x *= v.x;
-        this.y *= v.y;
-        this.z *= v.z;
-        return this;
-    }
-
-    clone() {
-        return new Vec3(this.x, this.y, this.z);
-    }
-}
-
 class LorenzAttractorRenderer {
     // Screen:
     // Vertical axis: [-50, 50]
