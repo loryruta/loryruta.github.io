@@ -143,6 +143,18 @@ AttractingCircle.Background = class {
         }
     }
 
+    _drawAttractingCircle() {
+        this._transformCanvas(() => {
+            let context = this.context;
+
+            context.beginPath();
+            context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
+            context.lineWidth = AttractingCircle.lineWidth;
+            context.strokeStyle = `rgb(15, 20, 71)`;
+            context.stroke();
+        });
+    }
+
     renderInit() {
         let context = this.context;
         let canvas = this.context.canvas;
@@ -151,14 +163,7 @@ AttractingCircle.Background = class {
         context.fillStyle = `#1a237e`;
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw attracting circle
-        this._transformCanvas(() => {
-            context.beginPath();
-            context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-            context.lineWidth = AttractingCircle.lineWidth;
-            context.strokeStyle = `white`;
-            context.stroke();
-        });
+        this._drawAttractingCircle();
     }
 
     render(dt) {
@@ -177,15 +182,11 @@ AttractingCircle.Background = class {
     
                 context.lineWidth = AttractingCircle.lineWidth;
 
-                context.strokeStyle = `rgb(19, 26, 92)`;
+                context.strokeStyle = `rgb(15, 20, 71)`;
                 context.stroke();
             }
         });
 
-        context.beginPath();
-        context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-        context.lineWidth = AttractingCircle.lineWidth;
-        context.strokeStyle = `white`;
-        context.stroke();
+        this._drawAttractingCircle();
     }
 }
