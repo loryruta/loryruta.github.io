@@ -1,59 +1,97 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>loryruta.github.io</title>
-    
-    <script type="text/javascript" src="js/vec.js"></script>
-    <script type="text/javascript" src="js/attracting_circle.js"></script>
-    <script type="text/javascript" src="js/lorenz_attractor.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <title>loryruta</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
-    <style>
-        html, body {
-            margin: 0;
-            height: 100%;
-        }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-        body {
-            background-color: black;
-            color: white;
-
-            font-family: 'Domine', serif;
-        }
-
-        #myCanvas {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-
-            background-color: black;
-        }
-
-        #title {
-            pointer-events: none;
-            z-index: 1;
-
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-
-            text-align: center;
-
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="myCanvas">
-        Your browser doesn't support this page
-    </canvas>
+    <div class="container">
+        <!-- Introduction -->
+        <div class="introduction">
+            <h1>Hello,</h1>
+            <p>
+                I'm <b>Lorenzo Rutayisire</b> — probably better known online as <b>loryruta</b> <i><s>or JohnnyKPL</s></i> — and I'm a graduated Computer Engineering student from Italy.
+                I'm currently attending "Artificial Intelligence - Large Scale" at the University of Modena and Reggio Emilia.
+            </p>
+            <p>
+                I consider myself a Software developer in the most general sense of the term, as in my career I've been involved in projects of different kinds (both for work, hobby or university tasks):
+                from embedded programming to web development. Sometimes I've also been involved in web design tasks and I can clearly say <b>I'm not a web designer</b> (use this page as a proof)!
+            </p>
+            <p>
+                My area of interest, so far 5 years since now, is Computer Graphics and in general GPU programming. During these years I've studied and experimented several graphics APIs (OpenGL and Vulkan),
+                and rendering techniques that have been useful in my hobby projects (that if you're interested you can check out in my Github profile). Also, my Bachelor degree thesis was about the architectural
+                design of a Vulkan renderer and implementation of real-time Computer Graphics techniques.
+            </p>
+            <p>
+                Finally, I'm an electronics enthusiast — I really like sparks but I'm not that brave to make them by myself — and I enjoy everything that's mind-blowing regarding mathemetics.
+            </p>
+            <p>
+                I also enjoy playing guitar and piano, and <b><u>go outside</u></b> to practice calisthenics and acrobatics :slight_smile:
+            </p>
+        </div>
 
-    <div id="title">
-        <h1>loryruta</h1>
+        <!-- Projects -->
+        <div class="projects mt-3">
+            <h1 class="d-inline">Projects</h1><small> (some of them)</small>
+
+            <div class="project mt-3">
+                <h3 class="title">vren</h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                </p>
+            </div>
+
+            <div class="project mt-3">
+                <h3 class="title">mdmc</h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                </p>
+            </div>
+
+            <div class="project mt-3">
+                <h3 class="title">Openverse</h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                </p>
+            </div>
+
+            <div class="project mt-3">
+                <h3 class="title">carcassonne</h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                </p>
+            </div>
+            
+            <div class="project mt-3">
+                <h3 class="title">TICP</h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contacts -->
+        <div class="contacts mt-3">
+            <h1>Contacts</h1>
+            <div>
+                <!-- Github -->
+                <a href="https://github.com/loryruta/" target="_blank">
+                    <img width="32" height="32" src="./img/GitHub-Mark-32px.png" />
+                </a>
+
+                <!-- Telegram -->
+                <a href="https://t.me/loryruta/" target="_blank">
+                    <img width="32" height="32" src="./img/telegram.png" />
+                </a>
+
+                <!-- Linkedin -->
+                <a href="https://www.linkedin.com/in/lorenzo-rutayisire-66bb941a9/" target="_blank">
+                    <img width="32" height="32" src="./img/linkedin.png" />
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

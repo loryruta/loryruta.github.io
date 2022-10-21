@@ -1,0 +1,30 @@
+
+body {
+    font-family:'Times New Roman', Times, serif;
+    font-size: 1.11rem;
+
+    margin: 100px 0px;
+}
+
+.introduction {
+}
+
+.projects {
+}
+
+.project {   
+    border: 1px solid gray;
+    border-top-right-radius: 10px;
+}
+
+.project .title {
+    padding: 6px 15px;
+    font-weight: bold;
+}
+
+.project .description {
+    padding: 6px 15px;
+}
+
+.contacts {
+}
