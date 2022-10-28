@@ -1,34 +1,36 @@
 <html>
 <head>
-    <title>loryruta</title>
+    <meta charset="UTF-8">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
     <link rel="stylesheet" href="style.css">
+    
+    <title>loryruta</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container my-container">
         <!-- Introduction -->
         <div class="introduction">
-            <h1>Hello,</h1>
+            <h1>Hello, <span class="fitzpatrick-5">&#x1F44B;</span></h1>
             <p>
-                I'm <b>Lorenzo Rutayisire</b> — probably better known online as <b>loryruta</b> <i><s>or JohnnyKPL</s></i> — and I'm a graduated Computer Engineering student from Italy.
-                I'm currently attending "Artificial Intelligence - Large Scale" at the University of Modena and Reggio Emilia.
+                I'm <b>Lorenzo Rutayisire</b> — probably better known online as <b>loryruta</b> — and I'm a student at the University of Modena and Reggio Emilia (Italy),
+                where I've graduated in Computer Engineering and where I'm currently attending "Artificial Intelligence - Large Scale".
             </p>
             <p>
-                I consider myself a Software developer in the most general sense of the term, as in my career I've been involved in projects of different kinds (both for work, hobby or university tasks):
-                from embedded programming to web development. Sometimes I've also been involved in web design tasks and I can clearly say <b>I'm not a web designer</b> (use this page as a proof)!
+                I consider myself a Software developer in the most general sense of the term, as in my career I've been involved in projects of several kinds (both for work, hobby or university tasks):
+                from embedded programming to web development. Sometimes I've also been involved in web design tasks and I can clearly say <b><u>I'm not a web designer</u></b>
+                (use this page as a proof)!
             </p>
             <p>
                 My area of interest, so far 5 years since now, is Computer Graphics and in general GPU programming. During these years I've studied and experimented several graphics APIs (OpenGL and Vulkan),
-                and rendering techniques that have been useful in my hobby projects (that if you're interested you can check out in my Github profile). Also, my Bachelor degree thesis was about the architectural
+                and rendering techniques that have been useful in my hobby projects (that if you're interested you can check out on my Github profile). Also, my Bachelor degree thesis was about the architectural
                 design of a Vulkan renderer and implementation of real-time Computer Graphics techniques.
             </p>
             <p>
-                Finally, I'm an electronics enthusiast — I really like sparks but I'm not that brave to make them by myself — and I enjoy everything that's mind-blowing regarding mathemetics.
+                Finally, I'm an electronics enthusiast — I really like sparks but I'm not that brave to make them by myself — and I enjoy everything that's mind-blowing regarding mathematics.
             </p>
             <p>
-                I also enjoy playing guitar and piano, and <b><u>go outside</u></b> to practice calisthenics and acrobatics :slight_smile:
+                I also enjoy playing guitar and piano, and <b><u>go outside</u></b> to practice calisthenics and acrobatics &#x1F642;
             </p>
         </div>
 
@@ -36,39 +38,102 @@
         <div class="projects mt-3">
             <h1 class="d-inline">Projects</h1><small> (some of them)</small>
 
+            <!-- vren -->
             <div class="project mt-3">
                 <h3 class="title">vren</h3>
+                <div class="topic">
+                    <span>Computer graphics</span>
+                </div>
                 <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                    vren is a 3D graphics library written over the Vulkan API. It provides different levels of abstraction: the library itself
+                    is a set of modules that the user can combine to achieve several tasks and possibly enable optimization techniques according
+                    to its hardware capabilities. At the moment the main features are <b>Mesh-Shading rendering</b>, <b>Occlusion Culling</b> and
+                    <b>Clustered Shading</b>.
                 </p>
+                <div class="skills">
+                    <div>C++</div>
+                    <div>Vulkan</div>
+                    <div>CMake</div>
+                    <div>GLSL</div>
+                </div>
             </div>
 
+            <!-- mdmc -->
             <div class="project mt-3">
                 <h3 class="title">mdmc</h3>
+                <div class="topic">
+                    <span>Computer graphics</span>
+                </div>
                 <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                    mdmc was thought to be a tool capable of converting a 3D model into a Minecraft schematic (a subset of the Minecraft world). The process
+                    consists in the conversion of the 3D model to a 3D volume (<b>conservative rasterization</b>) and then the mapping of the 3D volume into Minecraft blocks.
+                    The tool hasn't been completed due to difficulties in the mapping process, but features interesting techniques such as <b>parallel RadixSort</b>,
+                    <b>parallel Octree construction</b> and <b>traversal</b> for visualization.
                 </p>
+                <div class="skills">
+                    <div>C++</div>
+                    <div>OpenGL</div>
+                    <div>CMake</div>
+                    <div>GLSL</div>
+                </div>
             </div>
 
+            <!-- Openverse -->
             <div class="project mt-3">
-                <h3 class="title">Openverse</h3>
+                <h3 class="title">openverse</h3>
+                <div class="topic">
+                    <span>Computer graphics</span>
+                </div>
                 <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                    Openverse is a sandbox voxel-world game written in Java (not to say it's yet another Minecraft clone). Its architecture is very similar to Minecraft's: the codebase is
+                    splitted in a client and a server, that cooperate locally to achieve singleplayer modality and can be detached for multiplayer. Openverse is thought to be easily and
+                    totally moddable by a future community (that's why we chose Java). For graphics, it uses LWJGL — which is a Java-port of OpenGL — and features a rasterize-based renderer
+                    and SSAO as an optional post-processing effect.
                 </p>
+                <div class="skills">
+                    <div>Java 8</div>
+                    <div>OpenGL</div>
+                    <div>gradle</div>
+                </div>
             </div>
 
+            <!-- Carcassonne -->
             <div class="project mt-3">
                 <h3 class="title">carcassonne</h3>
+                <div class="topic">
+                    <span>Web development</span>
+                </div>
                 <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                    carcassonne is the digitalization of the namesake board-game. It was developed by me and a friend during COVID-19 quarantine to play with our group of friends.
                 </p>
+                <div class="skills">
+                    <div>Typescript</div>
+                    <div>Vue.js</div>
+                    <div>PixiJS</div>
+                    <div>HTML</div>
+                    <div>CSS</div>
+                </div>
             </div>
-            
+
+            <!-- PMCU -->
             <div class="project mt-3">
-                <h3 class="title">TICP</h3>
+                <h3 class="title">pmcu</h3>
+                <div class="topic">
+                    <span>Embedded programming</span>
+                    <span>Backend</span>
+                </div>
                 <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nunc turpis, cursus ac tincidunt non, ultrices a nisi. Mauris in turpis quis urna hendrerit pharetra. Quisque neque tortor, scelerisque a aliquet quis, lacinia vel ante. Aenean eu eros non est rutrum congue nec in tortor. Proin hendrerit faucibus enim vel vestibulum. Nulla et malesuada enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vestibulum gravida risus eget vestibulum. Curabitur semper lorem sit amet enim sollicitudin, vitae lobortis erat blandit. Duis volutpat egestas libero in porta. Sed maximus aliquam magna, imperdiet ultricies augue luctus in. Vestibulum dolor mi, gravida sodales congue sed, imperdiet eget risus. Duis ac purus nec leo vehicula vestibulum ut et eros. Pellentesque et convallis est. Donec porttitor, velit et scelerisque ullamcorper, sem mauris venenatis risus, id scelerisque ex purus vitae nibh. Integer id sodales mi.
+                    An IoT device meant to track weather conditions and air pollution. The measurements are done by two sensors: DHT22 (humidity and temperature) and SPS30 (particulate matter).
+                    These sensors are read by an MSP430 microcontroller that, along with the GPS position, sent the data to an MQTT broker, over the GSM network. The data is stored online and a website
+                    permits to view temporal charts.
                 </p>
+                <div class="skills">
+                    <div>C</div>
+                    <div>MSP430</div>
+                    <div>MQTT</div>
+                    <div>Python3</div>
+                    <div>MariaDB</div>
+                </div>
             </div>
         </div>
 

@@ -1,12 +1,28 @@
 
 body {
+    user-select: none;
+
     font-family:'Times New Roman', Times, serif;
     font-size: 1.11rem;
 
-    margin: 100px 0px;
+    background-color: #ffffff;
+    background-image:
+        linear-gradient(#DFDFDF 2px, transparent 2px),
+        linear-gradient(90deg, #DFDFDF 2px, transparent 2px),
+        linear-gradient(#DFDFDF 1px, transparent 1px),
+        linear-gradient(90deg, #DFDFDF 1px, #ffffff 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+.my-container {
+    padding: 100px 25px;
+
+    background-color: white;
 }
 
 .introduction {
+    text-align: justify;
 }
 
 .projects {
@@ -14,17 +30,67 @@ body {
 
 .project {   
     border: 1px solid gray;
+    border-right: 3px solid gray;
+
     border-top-right-radius: 10px;
 }
 
-.project .title {
-    padding: 6px 15px;
+.project > .title {
+    margin-left: 15px;
+    margin-top: 6px;
+
     font-weight: bold;
+
+    color: #ed3e3e;
 }
 
-.project .description {
-    padding: 6px 15px;
+.project > .topic {
+    margin-left: 15px;
+    margin-top: 2px;
+}
+
+.project > .topic > span {
+    display: inline;
+
+    padding: 0px 5px;
+
+    font-size: 14px;
+
+    background-color: rgb(231, 231, 231);
+    border-radius: 10px;
+    border: 1px solid rgb(161, 161, 161);
+}
+
+.project > .description {
+    margin-top: 6px;
+    padding: 0px 15px;
+
+    text-align: justify;
+}
+
+.project > .skills {
+    display: flex;
+    flex-direction: row;
+    background-color: gray;
+}
+
+.project > .skills > div {
+    text-align: center;
+
+    font-size: 15px;
+    width: 100px;
+    padding: 2px 0px;
+    color: white;
+    border-right: 1px solid rgba(0,0,0,0.2);
 }
 
 .contacts {
+}
+
+.fitzpatrick-4::after {
+    content: "\1F3FD";
+}
+
+.fitzpatrick-5::after {
+    content: "\1F3FE";
 }
