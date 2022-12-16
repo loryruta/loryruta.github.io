@@ -15,7 +15,7 @@ body {
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 
-.my-container {
+.main {
     padding: 100px 25px;
 
     background-color: white;
@@ -35,6 +35,11 @@ body {
     border-top-right-radius: 10px;
 }
 
+.project .header {
+    display: flex;
+    flex-direction: row;
+}
+
 .project .title {
     padding-left: 15px;
     padding-top: 6px;
@@ -51,12 +56,12 @@ body {
     text-decoration: none;
 }
 
-.project > .topic {
+.project .topic {
     margin-left: 15px;
     margin-top: 2px;
 }
 
-.project > .topic > span {
+.project .topic > span {
     display: inline;
 
     padding: 0px 5px;
@@ -107,4 +112,9 @@ body {
 
 .fitzpatrick-5::after {
     content: "\1F3FE";
+}
+
+i[data-project-show]:hover, i[data-project-hide]:hover {
+    cursor: pointer;
+    color: #ed3e3e;
 }

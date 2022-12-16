@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -8,9 +9,23 @@
     <script src="https://kit.fontawesome.com/9fe1eff927.js" crossorigin="anonymous"></script>
 
     <title>loryruta</title>
+
+    <script>
+        function setProjectVisible(project, visible) {
+            const projectElement = document.getElementById(project);
+            
+            const description = projectElement.querySelector(".description");
+            description.style.display = visible ? "block" : "none";
+
+            projectElement.querySelector(".header").style.paddingBottom = visible ? "0px" : "10px";
+
+            projectElement.querySelector("i[data-project-hide]").style.display = visible ? "none" : "block";
+            projectElement.querySelector("i[data-project-show]").style.display = visible ? "block" : "none";
+        }
+    </script>
 </head>
 <body>
-    <div class="container my-container">
+    <div class="container-xl main">
         <!-- Introduction -->
         <h1>Hello, <span class="fitzpatrick-5">&#x1F44B;</span></h1>
 
@@ -44,13 +59,21 @@
 
         <div class="projects mt-3">
             <!-- vren -->
-            <div class="project mt-3">
-                <div class="title">
-                    <h3 style="display: inline">vren</h3>
-                    <a target="_blank" href="https://github.com/loryruta/vren"><i class="fa fa-github"></i></a>
-                </div>
-                <div class="topic">
-                    <span>Computer graphics</span>
+            <div id="vren" class="project mt-3">
+                <div class="header">
+                    <div style="width: 100%">
+                        <div class="title">
+                            <h3 style="display: inline">vren</h3>
+                            <a target="_blank" href="https://github.com/loryruta/vren"><i class="fa fa-github"></i></a>
+                        </div>
+                        <div class="topic">
+                            <span>Computer graphics</span>
+                        </div>
+                    </div>
+                    <div style="flex: 1 0 100px; text-align: center;">
+                        <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('vren', false)"></i>
+                        <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('vren', true)"></i>
+                    </div>
                 </div>
                 <p class="description">
                     vren is a 3D graphics library written over the Vulkan API. It provides different levels of abstraction: the library itself
@@ -61,6 +84,28 @@
                 <div class="skills">
                     <div>C++</div>
                     <div>Vulkan</div>
+                    <div>CMake</div>
+                    <div>GLSL</div>
+                </div>
+            </div>
+            <script>setProjectVisible('vren', false)</script>
+
+            <!-- shinji -->
+            <div class="project mt-3">
+                <div class="title">
+                    <h3 style="display: inline">shinji</h3>
+                    <a target="_blank" href="https://github.com/loryruta/shinji"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="topic">
+                    <span>Buildsystem utility</span>
+                    <span>Computer graphics</span>
+                </div>
+                <p class="description">
+                    ...
+                </p>
+                <div class="skills">
+                    <div>C++</div>
+                    <div>OpenGL</div>
                     <div>CMake</div>
                     <div>GLSL</div>
                 </div>
@@ -80,6 +125,47 @@
                     consists in the conversion of the 3D model to a 3D volume (<b>conservative rasterization</b>) and then the mapping of the 3D volume into Minecraft blocks.
                     The tool hasn't been completed due to difficulties in the mapping process, but features interesting techniques such as <b>parallel RadixSort</b>,
                     <b>parallel Octree construction</b> and <b>traversal</b> for visualization.
+                </p>
+                <div class="skills">
+                    <div>C++</div>
+                    <div>OpenGL</div>
+                    <div>CMake</div>
+                    <div>GLSL</div>
+                </div>
+            </div>
+
+            <!-- voxelizer -->
+            <div class="project mt-3">
+                <div class="title">
+                    <h3 style="display: inline">voxelizer</h3>
+                    <a target="_blank" href="https://github.com/loryruta/voxelizer"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="topic">
+                    <span>Buildsystem utility</span>
+                    <span>Computer graphics</span>
+                </div>
+                <p class="description">
+                    ...
+                </p>
+                <div class="skills">
+                    <div>C++</div>
+                    <div>OpenGL</div>
+                    <div>CMake</div>
+                    <div>GLSL</div>
+                </div>
+            </div>
+
+            <!-- gpu-radix-sort -->
+            <div class="project mt-3">
+                <div class="title">
+                    <h3 style="display: inline">gpu-radix-sort</h3>
+                    <a target="_blank" href="https://github.com/loryruta/gpu-radix-sort"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="topic">
+                    <span>Computer graphics</span>
+                </div>
+                <p class="description">
+                    ...
                 </p>
                 <div class="skills">
                     <div>C++</div>
