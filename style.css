@@ -113,6 +113,9 @@ body {
 }
 
 i[data-project-show]:hover, i[data-project-hide]:hover {
-    cursor: pointer;
     color: #ed3e3e;
+}
+
+div:has(> i[data-project-show]:hover, i[data-project-hide]:hover) {
+    cursor: pointer;
 }
