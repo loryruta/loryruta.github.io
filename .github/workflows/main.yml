@@ -3,6 +3,8 @@ name: "Copy built website"
 on:
   push:
     branches: ["master"]
+    paths:
+      - "_site/**"
 
 jobs:
   copy-site:
@@ -10,11 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      
       - name: "Update gh-pages"
         run: |
           git clone https://github.com/$GITHUB_REPOSITORY.git --branch gh-pages --single-branch gh-pages
           ls
-          cp -r _site/ gh-pages/
+          cp -r ./_site/* gh-pages/
           cd gh-pages
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
