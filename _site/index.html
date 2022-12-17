@@ -1,0 +1,470 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style.css">
+    
+    <script src="https://kit.fontawesome.com/9fe1eff927.js" crossorigin="anonymous"></script>
+
+    <title>loryruta</title>
+
+    <script>
+        function setProjectVisible(project, visible) {
+            const projectElement = document.getElementById(project);
+            
+            const description = projectElement.querySelector(".description");
+            description.style.display = visible ? "block" : "none";
+
+            projectElement.querySelector(".header").style.paddingBottom = visible ? "0px" : "10px";
+
+            projectElement.querySelector("i[data-project-hide]").style.display = visible ? "none" : "block";
+            projectElement.querySelector("i[data-project-show]").style.display = visible ? "block" : "none";
+
+            console.log(projectElement, projectElement.querySelector("i[data-project-hide]"));
+        }
+    </script>
+</head>
+<body>
+    <div class="container-xl main">
+        <!-- Introduction -->
+        <h1>Hello, <span class="fitzpatrick-5">&#x1F44B;</span></h1>
+
+        <div class="row introduction">
+            <div class="col">
+                <p>
+                    I'm <b>Lorenzo Rutayisire</b> — probably better known online as <b>loryruta</b> — and I'm a student at the University of Modena and Reggio Emilia (Italy),
+                    where I've graduated in Computer Engineering and where I'm currently attending "Artificial Intelligence - Large Scale".
+                </p>
+                <p>
+                    I consider myself a Software developer in the most general sense of the term, as in my career I've been involved in projects of several kinds (both for work, hobby or university tasks):
+                    from embedded programming to web development. Sometimes I've also been involved in web design tasks and I can clearly say <b><u>I'm not a web designer</u></b>
+                    (use this page as a proof)!
+                </p>
+                <p>
+                    My area of interest, so far 5 years since now, is Computer Graphics and in general GPU programming. During these years I've studied and experimented several graphics APIs (OpenGL and Vulkan),
+                    and rendering techniques that have been useful in my hobby projects (that if you're interested you can check out on my Github profile). Also, my Bachelor degree thesis was about the architectural
+                    design of a Vulkan renderer and implementation of real-time Computer Graphics techniques.
+                </p>
+                <p>
+                    Finally, I'm an electronics enthusiast — I really like sparks but I'm not that brave to make them by myself — and I enjoy everything that's mind-blowing regarding mathematics.
+                </p>
+                <p>
+                    I also enjoy playing guitar and piano, and <b><u>go outside</u></b> to practice calisthenics and acrobatics &#x1F642;
+                </p>
+            </div>
+        </div>
+
+        <!-- Projects -->
+
+        <h1 class="d-inline">Projects</h1><small> (some of them)</small>
+
+        <div class="projects mt-3">
+            
+
+            <!-- vren -->
+            
+            
+                <div id="vren" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">vren</h3>
+
+                                <a target="_blank" href="https://github.com/loryruta/vren"><i class="fa fa-github"></i></a>
+                                
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Computer graphics</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('vren', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('vren', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                vren is a 3D graphics library written over the Vulkan API. It provides different levels of abstraction: the library itself
+                is a set of modules that the user can combine to achieve several tasks and possibly enable optimization techniques according
+                to its hardware capabilities. At the moment the main features are <b>Mesh-Shading rendering</b>, <b>Occlusion Culling</b> and
+                <b>Clustered Shading</b>.
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>C++</div>
+                        
+                            <div>Vulkan</div>
+                        
+                            <div>CMake</div>
+                        
+                            <div>GLSL</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("vren", true)</script>
+            
+
+            <!-- shinji -->
+            
+            
+                <div id="shinji" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">shinji</h3>
+
+                                <a target="_blank" href="https://github.com/loryruta/shinji"><i class="fa fa-github"></i></a>
+                                
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Buildsystem</span>
+                                
+                                    <span>Computer graphics</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('shinji', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('shinji', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                TODO
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>CMake</div>
+                        
+                            <div>C++</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("shinji", true)</script>
+            
+
+            <!-- mdmc -->
+            
+            
+                <div id="mdmc" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">mdmc</h3>
+
+                                
+                                <a target="_blank" href="https://www.youtube.com/watch?v=f-KxjFT2Osc"><i class="fa fa-youtube"></i></a>
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Computer graphics</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('mdmc', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('mdmc', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                mdmc was thought to be a tool capable of converting a 3D model into a Minecraft schematic (a subset of the Minecraft world). The process
+                consists in the conversion of the 3D model to a 3D volume (<b>conservative rasterization</b>) and then the mapping of the 3D volume into Minecraft blocks.
+                The tool hasn't been completed due to difficulties in the mapping process, but features interesting techniques such as <b>parallel RadixSort</b>,
+                <b>parallel Octree construction</b> and <b>traversal</b> for visualization.
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>C++</div>
+                        
+                            <div>OpenGL</div>
+                        
+                            <div>CMake</div>
+                        
+                            <div>GLSL</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("mdmc", true)</script>
+            
+
+            <!-- voxelizer -->
+            
+            
+                <div id="voxelizer" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">voxelizer</h3>
+
+                                <a target="_blank" href="https://github.com/loryruta/voxelizer"><i class="fa fa-github"></i></a>
+                                
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Computer graphics</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('voxelizer', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('voxelizer', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                TODO
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>C++</div>
+                        
+                            <div>OpenGL</div>
+                        
+                            <div>GLSL</div>
+                        
+                            <div>CMake</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("voxelizer", true)</script>
+            
+
+            <!-- gpu-radix-sort -->
+            
+            
+                <div id="gpu-radix-sort" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">gpu-radix-sort</h3>
+
+                                <a target="_blank" href="https://github.com/loryruta/gpu-radix-sort"><i class="fa fa-github"></i></a>
+                                
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Computer graphics</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('gpu-radix-sort', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('gpu-radix-sort', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                TODO
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>C++</div>
+                        
+                            <div>OpenGL</div>
+                        
+                            <div>GLSL</div>
+                        
+                            <div>CMake</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("gpu-radix-sort", true)</script>
+            
+
+            <!-- Openverse -->
+            
+            
+                <div id="openverse" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">openverse</h3>
+
+                                <a target="_blank" href="https://github.com/upperlevel/openverse"><i class="fa fa-github"></i></a>
+                                
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Computer graphics</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('openverse', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('openverse', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                Openverse is a sandbox voxel-world game written in Java (not to say it's yet another Minecraft clone). Its architecture is very similar to Minecraft's: the codebase is
+                splitted in a client and a server, that cooperate locally to achieve singleplayer modality and can be detached for multiplayer. Openverse is thought to be easily and
+                totally moddable by a future community (that's why we chose Java). For graphics, it uses LWJGL — which is a Java-port of OpenGL — and features a rasterize-based renderer
+                and SSAO as an optional post-processing effect.
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>Java</div>
+                        
+                            <div>OpenGL</div>
+                        
+                            <div>gradle</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("openverse", true)</script>
+            
+
+            <!-- Carcassonne -->
+            
+            
+                <div id="carcassonne" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">carcassonne</h3>
+
+                                <a target="_blank" href="https://github.com/upperlevel/openverse"><i class="fa fa-github"></i></a>
+                                
+                                <a target="_blank" href="https://carcassonne.online"><i class="fa fa-globe"></i></a>
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Web development</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('carcassonne', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('carcassonne', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                carcassonne is the digitalization of the namesake board-game. It was developed by me and a friend during COVID-19 quarantine to play with our group of friends.
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>Typescript</div>
+                        
+                            <div>Vue.js</div>
+                        
+                            <div>PixiJS</div>
+                        
+                            <div>HTML</div>
+                        
+                            <div>CSS</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("carcassonne", true)</script>
+            
+
+            <!-- PMCU -->
+            
+            
+                <div id="pmcu" class="project mt-3">
+                    <div class="header">
+                        <div style="width: 100%">
+                            <div class="title">
+                                <h3 style="display: inline">pmcu</h3>
+
+                                <a target="_blank" href="https://github.com/loryruta/pmcu-firmware"><i class="fa fa-github"></i></a>
+                                
+                                
+                                
+                            </div>
+                            <div class="topic">
+                                
+                                    <span>Embedded programming</span>
+                                
+                                    <span>Backend</span>
+                                
+                            </div>
+                        </div>
+                        <div style="flex: 1 0 100px; text-align: center;">
+                            <i data-project-show class="fa fa-angle-up fa-2x" onclick="setProjectVisible('pmcu', false)"></i>
+                            <i data-project-hide class="fa fa-angle-down fa-2x" onclick="setProjectVisible('pmcu', true)"></i>
+                        </div>
+                    </div>
+                    <p class="description">
+                        
+                An IoT device meant to track weather conditions and air pollution. The measurements are done by two sensors: DHT22 (humidity and temperature) and SPS30 (particulate matter).
+                These sensors are read by an MSP430 microcontroller that, along with the GPS position, sent the data to an MQTT broker, over the GSM network. The data is stored online and a website
+                permits to view temporal charts.
+            
+                    </p>
+                    <div class="skills">
+                        
+                            <div>Typescript</div>
+                        
+                            <div>Vue.js</div>
+                        
+                            <div>PixiJS</div>
+                        
+                            <div>HTML</div>
+                        
+                            <div>CSS</div>
+                        
+                    </div>
+                </div>
+                <script>setProjectVisible("pmcu", true)</script>
+            
+        </div>
+
+        <hr class="mt-3">
+
+        <!-- Contacts -->
+        <div class="mt-3" style="text-align: right">
+            <h3>My contacts</h3>
+
+            <div class="contacts">
+                <!-- GitHub -->
+                <a target="_blank" href="https://github.com/loryruta/">
+                    <i class="fa fa-2x fa-github"></i>
+                </a>
+
+                <!-- Telegram -->
+                <a target="_blank" href="https://t.me/loryruta/">
+                    <i class="fa fa-2x fa-telegram"></i>
+                </a>
+
+                <!-- Linkedin -->
+                <a target="_blank" href="https://www.linkedin.com/in/lorenzo-rutayisire-66bb941a9/">
+                    <i class="fa fa-2x fa-linkedin"></i>
+                </a>
+
+                <!-- Mail -->
+                <a target="_blank" href="https://github.com/loryruta/">
+                    <i class="fa fa-2x fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
