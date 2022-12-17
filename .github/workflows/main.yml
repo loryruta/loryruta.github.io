@@ -17,7 +17,6 @@ jobs:
       - name: "Update gh-pages"
         run: |
           git clone https://github.com/$GITHUB_REPOSITORY.git --branch gh-pages --single-branch gh-pages
-          ls
           cp -r ./_site/* gh-pages/
           cd gh-pages
           git config --local user.email "action@github.com"
