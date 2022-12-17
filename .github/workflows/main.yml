@@ -1,0 +1,34 @@
+name: "Copy built website"
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  copy-site:
+    name: "Copy built site"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Clone gh-pages"
+        run: |
+          git clone https://github.com/$GITHUB_REPOSITORY.git --branch gh-pages --single-branch gh-pages
+
+      - name: "Copy site to gh-pages"
+        run: |
+          cp -r ./_site/* gh-pages/
+          cd gh-pages
+
+      - name: "Commit to gh-pages"
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update gh-pages" -a || true
+
+      - name: "Push to gh-pages"
+        uses: ad-m/github-push-action@master
+        with:
+          branch: gh-pages
+          directory: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
