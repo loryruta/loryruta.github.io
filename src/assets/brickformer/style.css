@@ -1,0 +1,9 @@
+.todo-text {
+    font-weight: bolder;
+    color: red;
+    font-style: italic
+}
+
+.reveal .slides {
+    text-align: left;
+}

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorenzo Rutayisire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="/assets/brickformer/style.css">
+    <style>
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mermaid svg {
+            max-height: 450px;
+        }
+    </style>
+
+    <script>
+        function setAttributeRecursive(el, attr, val) {
+            if (el.tagName !== 'svg') {
+                el.style[attr] = val;
+            }
+            el.querySelectorAll("*").forEach(child => {
+                child.style[attr] = val;
+                
+            });
+        }
+
+        async function setDiagram(templateId, targetId, nodesToHighlight) {
+            // Reference:
+            // https://github.com/zjffun/reveal.js-mermaid-plugin/blob/898a6587e75d54a060f27075af1cdf06fd48d2aa/plugin/mermaid/plugin.js#L32-L37
+            
+            let mermaidCode = document.getElementById(templateId).innerHTML;
+            mermaidCode = mermaidCode.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+            const targetDiv = document.getElementById(targetId);
+            const { svg: svgCode } = await mermaid.render(`mermaid-${Math.random().toString(36).substring(2)}`, mermaidCode);
+            targetDiv.innerHTML = svgCode;
+
+            for (let nodeId of nodesToHighlight) {
+                setAttributeRecursive(document.querySelector(`#${targetId} #${nodeId}`), "stroke", "red");
+                setAttributeRecursive(document.querySelector(`#${targetId} #${nodeId}`), "stroke-width", "3px");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+        <pre id="user_pipeline" style="display: none">
+flowchart LR
+ subgraph s1["<b>Configuration</b>"]
+        n2["Set model orientation"]
+        C["Choose grid resolution"]
+        n4["Choose colors set"]
+        n5["Set alpha threshold"]
+  end
+ subgraph s2["<b>Export</b>"]
+        n9["Export LEGO bricks"]
+        n10["Export to BrickLink Studio"]
+        n8["Export PDF instructions"]
+        n7["Export the LEGO 3D Model"]
+  end
+    n2 --> C
+    C --> n4
+    n4 --> n5
+    A(["3D Model<br>(.gltf or .glb)"]) --> B["<b>Brick</b>Former"]
+    B --> s1
+    s1 --> n6["<b>Conversion</b>"]
+    n6 --> n3["<b>LEGO<br>Construction</b>"]
+    n3 --> s2
+    n9 --> n10
+    n10 --> n8
+    n8 L_n8_n7_0@--> n7
+
+    n9@{ shape: rect}
+    n10@{ shape: rect}
+    n8@{ shape: rect}
+    n7@{ shape: rect}
+    n6@{ shape: rect}
+    n3@{ shape: rounded}
+    style B stroke-width:0px,stroke-dasharray:0,fill:#FFD600
+    style s1 stroke:transparent
+    style n6 fill:#2962FF,stroke-width:0px,stroke-dasharray:0,color:#ffffff
+    style n3 fill:#FFD600,stroke-width:0px,stroke-dasharray:0
+    style s2 stroke:transparent
+    linkStyle 8 stroke:transparent,fill:none
+    linkStyle 9 stroke:transparent,fill:none
+    linkStyle 10 stroke:transparent,fill:none
+
+    L_n8_n7_0@{ animation: fast }
+            </pre>
+
+            {# Brickformer.io #}
+            <section>
+                <div class="d-flex justify-content-center align-items-center pt-3">
+                    <img style="vertical-align: middle" src="/assets/brickformer/brickformer_logo.svg?v=c6fc3da4d5f3d590" draggable="false" height="32">
+                    <h1 style="display: inline"><b>Brick</b>Former</h1>
+                    <p>
+                        <a href="https://brickformer.io/">https://brickformer.io/</a>
+                    </p>
+                </div>
+                <p class="fragment">
+                    It's a tool to turn a 3D model into a LEGO Construction.
+                </p>
+            </section>
+
+            {# ---------------------------------------------------------------- #}
+            {# User pipeline #}
+            {# ---------------------------------------------------------------- #}
+
+            <section data-transition="none">
+                <h2>User Pipeline</h2>
+                <div id="user_pipeline_1"></div>
+                <p>
+                    The user uploads a <b>3D model</b> (picked for example from <a href="https://sketchfab.com/3d-models/popular" target="_blank">Sketchfab</a>).
+                    The supported input formats are <b>.gltf</b> and <b>.glb</b>.<br>
+                    These are general purpose formats to which any other can typically convert to.
+                </p>
+            </section>
+
+            <section data-transition="none">
+                <h2>User Pipeline</h2>
+                <pre id="user_pipeline_2"></pre>
+                <p>
+                    The <b>model orientation</b> can be any, depending on the tool that was used to craft the model.
+                    Hence why we provide a functionality to define the up axis and to flip axes. 
+                </p>
+            </section>
+
+            <section data-transition="none">
+                <h2>User Pipeline</h2>
+                <pre id="user_pipeline_3"></pre>
+                <p>
+                    The <b>grid resolution</b> defines how many bricks are used in the XZ dimensions (+Y up).
+                    The height (i.e. the number of slices) will be proportional to the model size.
+                </p>
+            </section>
+
+            <section data-transition="none">
+                <h2>User Pipeline</h2>
+                <pre id="user_pipeline_4"></pre>
+                <p>
+                    We support all common LEGO <b>brick colors</b> available on the market. Via UI, it is possible to exclude colors that shouldn't be used during the conversion, hence defining the palette.
+                </p>
+            </section>
+
+            <section data-transition="none">
+                <h2>User Pipeline</h2>
+                <pre id="user_pipeline_5"></pre>
+                <p>
+                    The conversion doesn't support transparency.
+                    The <b>alpha threshold</b> defines a boundary past which transparent fragments become opaque colors. 
+                </p>
+            </section>
+
+
+            <section data-transition="none">
+                <h2>User Pipeline</h2>
+                <pre id="user_pipeline_6"></pre>
+                <div>
+                    Once the conversion is done, multiple exporting options are available:
+                    <ul style="list-style-position: inside">
+                        <li>Export the bricks required for the conversion to <b>.lxf</b>, and upload them to <a href="_blank" target="https://www.bricklink.com/">BrickLink</a> to purchase them.</li>
+
+                        <li>You can export the construction to a full-featured LEGO editor, like <a href="https://www.bricklink.com/v3/studio/download.page">BrickLink Studio</a>.
+                        <span class="fragment todo-text" data-fragment-index="0">TODO</span>
+                        </li>
+
+                        <li>Export PDF instructions.
+                        <span class="fragment todo-text" data-fragment-index="0">TODO</span>
+                        </li>
+
+                        <li>Export the 3D Model of the LEGO construction.</li>
+                    </ul>
+                </div>
+            </section>
+
+            {# ---------------------------------------------------------------- #}
+            {# Problem Statement #}
+            {# ---------------------------------------------------------------- #}
+
+            <section>
+                {# Problem statement #}
+                <h1>Problem Statement</h1>
+                <div>
+                    The problem that BrickFormer aims to solve, is to maximize the <b>similarity</b> between a LEGO construction $\mathcal{p}$ and a target 3D model $\mathcal{M}$.
+                    The similarity is defined in terms of shape and color. The "LEGO construction", is a combination of bricks drawn from a provided discrete set, with a given resolution. Among  some of them are not valid.
+                </div>
+                <div>
+                    \[\begin{aligned}
+                        p^* = \arg\max_{p \in \mathbb{P}} similarity(p, \mathcal{M})
+                    \end{aligned} \]
+                </div>
+
+                {# The similarity function #}
+                <div class="fragment">
+                    <h3>The similarity function</h3>
+                    <div>
+                        We can trivially model a similarity score that will be higher if $p$ 
+                        is close to the target model. Considering both live in the same 3D space, a measure of similarity could be provided by aggregating the structural distance, and color distance, of every individual brick $b$ to the closest point on the model.
+                    </div>
+                    <div>
+                        \[\begin{aligned}
+                            similarity(p, \mathcal{M}) = \dfrac{1}{|p|} \sum_{b \in p} \left( dist(b_{position}, \mathcal{M}) + dist(b_{color}, \mathcal{M}) \right)
+                        \end{aligned} \]
+                    </div>
+                    <div>
+                        The closest point on the model could be efficiently retrieved through a spatial data structure (e.g. a KD-tree).
+                    </div>
+                </div>
+
+                {# The solution space #}
+                <div class="fragment">
+                    <h3>The solution space</h3>
+                    <div>
+                        <p>
+                        To simplify the problem, the set of available bricks $\mathbb{B}$ is made of standard LEGO bricks (as shown below). Different rotations of these bricks are treated as different bricks. Placements happen in a 3D cell, within a 3D grid defined by the input resolution $\mathcal{R}$.
+                        Nonetheless these simplifications, the solution space $\mathbb{P}$ remains discrete and insanely large.
+                        For every 3D cell, any combination of bricks could be placed, and of any color.
+                        The cardinality would be:</p>
+                        <div>
+                            \[\begin{aligned}
+                                |\mathbb{P}| = \left| \mathcal{R}_x \times \mathcal{R}_y \times \mathcal{R}_z \times \mathbb{B} \times \mathbb{C} \right|
+                            \end{aligned} \]
+                        </div>
+                        <p>Where $\mathbb{C}$ is the set of available colors.</p>
+                    </div>
+                    <div>
+                        Most notably, the solution space is populated with <b>invalid</b> constructions.
+                        For example: overlapping bricks, floating bricks, bricks spanning out of the provided resolution.
+                        Moreover, some constructions might share high similarity, but one should be preferred to another in terms of <b>stability</b>.
+                    </div><br>
+                    <div>It's clear that addressing the problem globally is unfeasible, hence why I've opted for a <b>greedy solution</b>.</div>
+
+                    {# TODO ADD BRICKS IMAGES! #}
+                </div>
+            </section>
+
+            {# ---------------------------------------------------------------- #}
+            {# Greedy approach #}
+            {# ---------------------------------------------------------------- #}
+
+            <section data-transition="none">
+                <h1>Greedy approach</h1>
+                <div>I ended up implementing an <b>incremental</b> and <b>greedy</b> algorithm.</div>
+
+                <div>
+                    <h3>Bottom-up construction</h3>
+                    <div>
+                        Practically, LEGO constructions are built bottom-up, hence I decided to have the tool doing the same.<br>
+                        In this way the search space is reduced from 3 to 2 dimensions:
+                        <div>
+                            \[\begin{aligned}
+                                | \hat{\mathbb{P}} | = \left| \mathcal{R}_x \times \mathcal{R}_z \times \mathbb{B} \times \mathbb{C} \right|
+                            \end{aligned} \]
+                        </div>
+
+                        <div>
+                        If we constrain the resolution $\mathcal{R}_{\{x,y,z\}}$ to $\{1, ..., 150\}$, and have practical numbers for the available bricks $|\mathbb{B}| = 22$ and colors $|\mathbb{C}| = 67$.
+                        The worst case solution space would be:
+                        
+                        \[\begin{aligned}
+                            150 \times 150 \times 22 \times 67 = 33165000
+                        \end{aligned} \]
+
+                        For each we evaluate the similarity function,
+                        leading to a final algorithm that would be already treatable by modern GPUs (possibly chunked in multiple kernel dispatches).<br>
+                        However, we still didn't get rid of <b>invalid</b> solutions: some solutions could have overlapping bricks,
+                        floating bricks or bricks spanning out of the conversion grid.
+                        While checking if a brick is floating or out of bounds is simpler in the 2D case (and could be done when evaluating the similarity function), <u>checking if bricks of the same solution are overlapping is not trivial</u> as it requires a second pass and additional storage. 
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="none">
+                <h1>Slicing the model</h1>
+                <div>
+
+                </div>
+            </section>
+
+            <section data-transition="none">
+                <h1>Greedy approach</h1>
+                <div>I ended up implementing an <b>incremental</b> and <b>greedy</b> algorithm.</div>
+
+                <div>
+                    <h3>Placement-by-placement construction</h3>
+                    <div>
+                        LEGO constructions are built <b>brick-by-brick</b> and typically, consecutive placements are illustrated close to each other.<br>
+                        <br>
+                        Provided with this insight, I derived the final algorithm:
+                        starting from a state $\mathcal{S}_i$ of the construction, all placements within the 2D slice are evaluated, it is picked the placement $\pi^*$ which evaluates the highest to an hand-crafted <b>placement score function $f$</b>.
+
+                        \[\begin{aligned}
+                            \pi^* = \arg\max_{\pi \in \mathbb{P}^2} f_{\mathcal{S}_i}(\pi)
+                        \end{aligned} \]
+
+                        Once the placement is selected, it is added to the construction:
+
+                         \[\begin{aligned}
+                            \mathcal{S}_{i+1} \leftarrow \mathcal{S}_i \cup \pi^*
+                        \end{aligned} \]
+
+                        The process is repeated within the current slice.
+                        If the highest score is lower than a pre-defined threshold $\tau_f$,
+                        it restarts for the next slice until the full height of the construction $\mathcal{R}_y$ is reached.
+                    </div>
+                </div>
+            </section>
+
+            {# Hand-crafted Placement Score Function #}
+            <section data-transition="none">
+                <h1>Greedy approach</h1>
+                <div>I ended up implementing an <b>incremental</b> and <b>greedy</b> algorithm.</div>
+
+                <div>
+                    <h3>Hand-crafted Placement Score Function</h3>
+                    <div>
+                        The score function was designed empirically.
+                        After several experiments with different measures, I ended up with:
+
+                        \[\begin{aligned}
+                            h_n = 1 - \dfrac{h}{3 \cdot 255} 
+                        \end{aligned} \]
+                        \[\begin{aligned}
+                            f_{\mathcal{S}_i}(\pi) = \dfrac{b}{B} \cdot \left( \dfrac{d}{b} + sigmoid( 32 \cdot (h_n - 0.130) ) \right) + (0.8 \cdot \dfrac{c}{b} + 0.2) 
+                        \end{aligned} \]
+
+                        Where:
+                        <ul>
+                            <li>$b$ is the size of the brick.</li>
+                            <li>$B$ is the maximum brick size.</li>
+                            <li>$d$ is the number of <u>different</u> placements on the previous slice that this placement connects.</li>
+                            <li>$h$ is the Manhattan RGB distance between the brick and the model.</li>
+                            <li>$c$ is the number of voxels filled by the model's slice, that this placement covers.</li>
+                        </ul>
+
+                        <br>
+                        As you can deduce from the above definitions, each variable encodes a local similarity and stability measure:
+                        <ul>
+                            <li>$b$: the larger the brick, the better. This improves <b>stability</b>.</li>
+                            <li>$d$: the more diverse placements are connected on the previous slice, the more <b>stable</b> it is. For example, avoids making same brick piles.</li>
+                            <li>$h$: addresses <b>color similarity</b>.</li>
+                            <li>$c$: addresses <b>structural similarity</b>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            {# Placement solver implementation #}
+            <section>
+                <h1>Placement solver implementation</h1>
+            </section>
+
+            {# LEGO Renderer #}
+            <section>
+                <h1>LEGO Renderer</h1>
+            </section>
+
+            {# Overall architecture #}
+            <section>
+                <h1>Overall architecture</h1>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/math/math.min.js" integrity="sha512-tdpe8NdPiaypY/eUgKqr/aL5y0tLiFEde/joBsD4bfjyB8yNuGsReuN/D+XDcGbHQ8/xbDbJ0mqkfGdh2JxCAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> #}
+    {# <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.0.0/startup.js" integrity="sha512-bTOpOLAF7Z74dLZ3Z3jfQE7SH0mFuuneuOQR+/3EP811prUfVzgtQLPAnIFGlAXc5fs9b1dIjfi8zd4Px1xrAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        Reveal.initialize({
+          mathjax4: {
+    mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
+    tex: {
+      inlineMath: [
+        ['$', '$'],
+        ['\\(', '\\)'],
+      ],
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    },
+  },
+            hash: true,
+            slideNumber: true,
+            center: false,
+            plugins: [RevealMath.MathJax3]
+        });
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            security: 'loose',
+            flowchart: { htmlLabels: true },
+            themeVariables: {
+                fontFamily: '"Times New Roman", Times, serif',
+                primaryColor: '#cfcfcf',
+                background: 'white',
+                clusterBkg: '#f5f5f5',
+                lineColor: 'black'
+            }
+        });
+
+        setDiagram("user_pipeline", "user_pipeline_1", ["flowchart-A-14", "flowchart-B-15"]);
+        setDiagram("user_pipeline", "user_pipeline_2", ["flowchart-n2-0"]);
+        setDiagram("user_pipeline", "user_pipeline_3", ["flowchart-C-1"]);
+        setDiagram("user_pipeline", "user_pipeline_4", ["flowchart-n4-2"]);
+        setDiagram("user_pipeline", "user_pipeline_5", ["flowchart-n5-3"]);
+        setDiagram("user_pipeline", "user_pipeline_6", ["flowchart-n5-3"]);
+    </script>
+</body>
+</html>
