@@ -46,6 +46,37 @@
                     <div>
                         Although low-level Computer Graphics and Vision is my strong point, I consider myself a Software Engineer in the most general sense of the term. In my career, I've been involved in projects of many kinds: embedded programming, desktop and mobile applications, full-stack, deep learning networks and data analysis. I also have strong skills working in a Linux environment, I'm able to administrate tools and processes to aid the development. In multiple occasions, I have demonstrated great capabilities in team co-working and project leading. Besides pure technical skills, I am particularly keen in abstract thinking and math; the latter being essential in Computer Graphics.
                     </div>
+
+                    <div class="mt-4">
+                        {% set skills = [
+                            { name: "C++", value: 90, color: "#00599C" },
+                            { name: "Vulkan", value: 90, color: "#00599C" },
+                            { name: "OpenCL", value: 90, color: "#00599C" },
+                            { name: "OpenGL", value: 90, color: "#00599C" },
+                            { name: "WebGL", value: 90, color: "#00599C" },
+                            { name: "CUDA", value: 85, color: "#00599C" },
+                            { name: "Slang", value: 80, color: "#00599C" },
+                            { name: "Rust", value: 15, color: "#00599C" },
+                            { name: "Python", value: 99, color: "#00599C" },
+                            { name: "PyTorch", value: 90, color: "#00599C" },
+                            { name: "Java", value: 60, color: "#00599C" },
+                            { name: "Vue.js", value: 70, color: "#00599C" },
+                            { name: "Laravel", value: 90, color: "#00599C" },
+                            { name: "PostgreSQL", value: 80, color: "#00599C" },
+                            { name: "Docker", value: 70, color: "#00599C" },
+                            { name: "Github Actions", value: 100, color: "#00599C" }
+                        ] %}
+                        <div class="d-flex justify-content-around mt-4 mb-4" style="height: 200px;">
+                            {% for skill in skills %}
+                                <div class="d-flex flex-column align-items-center h-100">
+                                    <div class="progress flex-grow-1" style="width: 40px; display: flex; flex-direction: column-reverse;">
+                                        <div class="progress-bar" role="progressbar" style="height: {{ skill.value }}%; width: 100%; background-color: {{ skill.color }};" aria-valuenow="{{ skill.value }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="fw-bold mt-2">{{ skill.name }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mt-2">
