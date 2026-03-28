@@ -2,20 +2,15 @@
 body {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.11rem;
+}
 
-    background-color: #ffffff;
-    background-image:
-        linear-gradient(#DFDFDF 2px, transparent 2px),
-        linear-gradient(90deg, #DFDFDF 2px, transparent 2px),
-        linear-gradient(#DFDFDF 1px, transparent 1px),
-        linear-gradient(90deg, #DFDFDF 1px, #ffffff 1px);
-    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
-    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+.avatar {
+    width: 200px;
+    border-radius: 100px;
 }
 
 .main {
     padding: 100px 25px;
-
     background-color: white;
 }
 

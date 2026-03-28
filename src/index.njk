@@ -8,7 +8,7 @@
     
     <script src="https://kit.fontawesome.com/9fe1eff927.js" crossorigin="anonymous"></script>
 
-    <title>loryruta</title>
+    <title>Lorenzo Rutayisire</title>
 
     <script>
         function setProjectVisible(project, visible) {
@@ -27,32 +27,39 @@
     </script>
 </head>
 <body>
-    <div class="container-xl main">
+    <div class="container-xl">
         <!-- Introduction -->
-        <h1>Hello, <span class="fitzpatrick-5">&#x1F44B;</span></h1>
-
         <div class="row introduction">
             <div class="col">
-                <p>
-                    I'm <b>Lorenzo Rutayisire</b> — probably better known online as <b>loryruta</b> — and I'm a student at the University of Modena and Reggio Emilia (Italy),
-                    where I've graduated in Computer Engineering and where I'm currently attending "Artificial Intelligence - Large Scale".
-                </p>
-                <p>
-                    I consider myself a Software developer in the most general sense of the term, as in my career I've been involved in projects of several kinds (both for work, hobby or university tasks):
-                    from embedded programming to web development. Sometimes I've also been involved in web design tasks and I can clearly say <b><u>I'm not a web designer</u></b>
-                    (use this page as a proof)!
-                </p>
-                <p>
-                    My area of interest, so far 5 years since now, is Computer Graphics and in general GPU programming. During these years I've studied and experimented several graphics APIs (OpenGL and Vulkan),
-                    and rendering techniques that have been useful in my hobby projects (that if you're interested you can check out on my Github profile). Also, my Bachelor degree thesis was about the architectural
-                    design of a Vulkan renderer and implementation of real-time Computer Graphics techniques.
-                </p>
-                <p>
-                    Finally, I'm an electronics enthusiast — I really like sparks but I'm not that brave to make them by myself — and I enjoy everything that's mind-blowing regarding mathematics.
-                </p>
-                <p>
-                    I also enjoy playing guitar and piano, and practice calisthenics and acrobatics &#x1F642;
-                </p>
+                <img src="assets/avatar.jpg" class="avatar"></img>
+                <div>
+                    My name is <b>Lorenzo Rutayisire</b>, I am a {{ getAge() }} y/o Software Engineer, keen on <b>low-level Computer Graphics</b>, <b>GPU Computing</b>, <b>Computer Vision</b> and <b>Artificial Intelligence</b>.
+                </div>
+                <!-- Introduction -->
+                <div>
+                    I am currently working as a <b>Senior Engineer</b> at <b>Samsung R&D UK</b>. My role is to develop and lead a framework to make available the latest Computer Graphics and Vision research, to the latest Samsung Galaxy devices. I daily work with C++, Vulkan, OpenCL, and occasionally experiment in Python and CUDA.<br>
+                    Before, I was a graduate student at the University of Modena and Reggio Emilia, where I received a MSc degree in Artificial Intelligence with a thesis regarding interactive editing of Gaussian Splatting scenes. Before, I received my BSc degree in Computer Engineering from the same university. My thesis was about designing a real-time Vulkan renderer.
+                </div>
+
+                <div class="mt-2">
+                    <h5>What's my potential?</h5>
+                    <div>
+                        Although low-level Computer Graphics and Vision is my strong point, I consider myself a Software Engineer in the most general sense of the term. In my career, I've been involved in projects of many kinds: embedded programming, desktop and mobile applications, full-stack, deep learning networks and data analysis. I also have strong skills working in a Linux environment, I'm able to administrate tools and processes to aid the development. In multiple occasions, I have demonstrated great capabilities in team co-working and project leading. Besides pure technical skills, I am particularly keen in abstract thinking and math; the latter being essential in Computer Graphics.
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    {# <h5>My background</h5> #}
+                    <div>
+                        My interest in technology born when I was in mid-school: in 2010, it was popular to hack Pokémon games for Gameboy, and I got involved, dreaming to make my own game. A few years later I discovered Minecraft mods, and with friends we used to develop minigames for online servers. I first delved into Computer Graphics when me and a friend decided to make our own clone of Minecraft. Given my experience, both high school and university studies went smoothly, often sparking in me genuine curiosity to discover new things and methods.
+                        This considered, I believe I have a lot to offer, and I would like to spend my skills in a research whose objective is to improve the quality of life of the people, and that is sustainable.
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <h5>Away from the computer</h5>
+                    When I'm not programming, I play the guitar, I'm learning piano, practice calisthenics, acrobatics, run and play football.
+                </div>
             </div>
         </div>
 
@@ -238,6 +245,11 @@
                     <i class="fa fa-2x fa-envelope"></i>
                 </a>
             </div>
+        </div>
+
+        <!-- Last updated -->
+        <div class="mt-3" style="text-align: right; font-size: 0.9rem; color: #666;" id="last-updated-container">
+            Last updated: {{ now() }}
         </div>
     </div>
 </body>
