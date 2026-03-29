@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorenzo Rutayisire</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/tokyo-night-light.min.css" integrity="sha512-XPIePliMtoEozJ99t+gktFvC8YVLKHzQH7T0RBtzEzNitkNh4IgQ5UAOdPT52ypYGjOHWkKSC4W77ZelU42LeA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/assets/brickformer/style.css">
+    <script src="https://kit.fontawesome.com/9fe1eff927.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            
+            
+
+            <section class="center" style="text-align: center">
+                <div class="d-flex justify-content-center align-items-center pt-3">
+                    <img style="vertical-align: middle" src="/assets/brickformer/brickformer_logo.svg?v=c6fc3da4d5f3d590" draggable="false" height="32">
+                    <h1 style="display: inline; font-weight: normal"><b>Brick</b>Former</h1>
+                    <p style="display: flex; gap: 20px; justify-content: center; font-size: 0.8em; margin-top: 10px;">
+                        <a href="https://brickformer.io/" target="_blank"><i class="fa fa-globe"></i> Website</a>
+                        <a href="https://github.com/loryruta/brickformer" target="_blank"><i class="fa fa-github"></i> Github</a>
+                    </p>
+                </div>
+                <div>
+                A tool to convert 3D models into LEGO constructions.
+                </div>
+            </section>
+
+            <section class="center">
+                <div>
+                    BrickFormer was a <b>toy project</b>, it is the result of my passion for Computer Graphics, GPU Computing and LEGO's.<br>
+                    After I had the idea, I was deeply challenged by the complexity of the problem, and my hobby during university time became trying to find a method to solve it.</div>
+                <div style="margin-top: 20px">
+                <video autoplay loop muted playsinline src="/assets/brickformer/user_conversion.mp4" style="width: 100%"></video>
+                </div>
+            </section>
+
+            
+            
+            
+
+            <section data-transition="slide-in none-out">
+                <h2 style="margin-bottom: 10px">User pipeline</h2>
+                <h4 style="margin-top: 0">Upload the model</h4>
+                <p>
+                    The user uploads a <b>3D model</b> (picked for example from <a href="https://sketchfab.com/3d-models/popular" target="_blank">Sketchfab</a>).
+                    The supported input formats are <b>.gltf</b> and <b>.glb</b>.<br>
+                    These are general purpose formats to which any other can typically convert to.
+                </p>
+                <img src="/assets/brickformer/user_model.png" style="width: 100%">
+            </section>
+
+            <section data-transition="none-in none-out">
+                <h2 style="margin-bottom: 10px">User pipeline</h2>
+                <h4 style="margin-top: 0">Choose the model orientation</h4>
+                <p>
+                    The <b>model orientation</b> can be any, depending on the tool that was used to craft the model.
+                    Hence why we provide a functionality to define the up axis and to flip axes. 
+                </p>
+                <video autoplay loop muted playsinline src="/assets/brickformer/user_orientation_adjust.mp4" style="width: 100%"></video>
+            </section>
+
+            <section data-transition="none-in none-out">
+                <h2 style="margin-bottom: 10px">User pipeline</h2>
+                <h4 style="margin-top: 0">Choose the grid resolution</h4>
+                <p>
+                    The <b>grid resolution</b> defines how many bricks are used in the XZ dimensions (+Y up).
+                    The height (i.e. the number of slices) will be proportional to the model size.
+                </p>
+                <video autoplay loop muted playsinline src="/assets/brickformer/user_resolution_change.mp4" style="width: 100%"></video>
+            </section>
+
+            <section data-transition="none-in none-out">
+                <h2 style="margin-bottom: 10px">User pipeline</h2>
+                <h4 style="margin-top: 0">Choose the colors to use</h4>
+                <p>
+                    We support all common LEGO <b>brick colors</b> available on the market.
+                    Via UI, it is possible to exclude colors that must not be used during the conversion,
+                    hence defining a custom palette.
+                </p>
+                <video autoplay loop muted playsinline src="/assets/brickformer/user_color_selection.mp4" style="width: 100%"></video>
+            </section>
+
+            
+            
+
+            <section data-transition="none-in slide-out">
+                <h2 style="margin-bottom: 10px">User pipeline</h2>
+                <h4 style="margin-top: 0">Exporting the conversion</h4>
+                <div>
+                    Once the conversion is done, multiple exporting options are available:
+                    <ul style="list-style-position: inside">
+                        <li>Export the bricks required for the conversion to <b>.lxf</b>, and upload them to <a href="_blank" target="https://www.bricklink.com/">BrickLink</a> to purchase them.</li>
+                        <li class="todo-text">TODO You can export the construction to a full-featured LEGO editor, like <a href="https://www.bricklink.com/v3/studio/download.page">BrickLink Studio</a>.
+                        </li>
+                        <li class="todo-text">TODO Export PDF instructions.
+                        </li>
+                        <li>Export the 3D Model of the LEGO construction.</li>
+                    </ul>
+                </div>
+            </section>
+
+            
+            
+            
+
+            <section data-transition="slide-in none-out">
+                
+                <h2>Problem statement</h2>
+                <div>
+                    The problem that BrickFormer aims to solve, is to maximize the <b>similarity</b> between a LEGO construction $\mathcal{p}$ and a target 3D model $\mathcal{M}$.
+                    The similarity is defined in terms of shape and color. The "LEGO construction" has a given resolution and is a combination of bricks drawn from a provided discrete set. Among the possible combinations some of them are not valid.
+                </div>
+                <div>
+                    \[\begin{aligned}
+                        p^* = \arg\max_{p \in \mathbb{P}} \operatorname{similarity}(p, \mathcal{M})
+                    \end{aligned} \]
+                </div>
+            </section>
+
+            <section data-transition="none">
+                <h2 style="margin-bottom: 10px">Problem statement</h2>
+                <h4 style="margin-top: 0">The similarity function</h4>
+                <div>
+                    We can trivially model a similarity score that will be higher if $p$ 
+                    is close to the target model. Considering both live in the same 3D space, a measure of similarity could be provided by aggregating the structural distance, and color distance, of every individual brick $b$ to the closest point on the model.
+                </div>
+                <div>
+                    \[\begin{aligned}
+                        \operatorname{similarity}(p, \mathcal{M}) = \dfrac{1}{|p|} \sum_{b \in p} \left( \operatorname{dist}(b_{\text{position}}, \mathcal{M}) + \operatorname{dist}(b_{\text{color}}, \mathcal{M}) \right)
+                    \end{aligned} \]
+                </div>
+                <div>
+                    The closest point on the model could be efficiently retrieved through a spatial data structure (e.g. a KD-tree).
+                </div>
+            </section>
+
+            <section data-transition="none-in slide-out">
+                <h2 style="margin-bottom: 10px">Problem statement</h2>
+                <h4 style="margin-top: 0">The solution space</h4>
+                    <div>
+                        <p>
+                        To simplify the problem, the set of available bricks $\mathbb{B}$ is made of standard LEGO bricks (as shown below). Different rotations of these bricks are treated as different bricks. Placements locations are binned in voxels within a 3D grid defined by the input resolution $\mathcal{R}$.
+                        Nonetheless these simplifications, the solution space $\mathbb{P}$ remains discrete and insanely large.
+                        For every voxel, any combination of bricks could be placed, and of any color.
+                        The cardinality would be:</p>
+                        <div>
+                            \[\begin{aligned}
+                                |\mathbb{P}| = \left| \mathcal{R}_x \times \mathcal{R}_y \times \mathcal{R}_z \times \mathbb{B} \times \mathbb{C} \right|
+                            \end{aligned} \]
+                        </div>
+                        <p>Where $\mathbb{C}$ is the set of available colors.</p>
+                    </div>
+                    <div>
+                        Most notably, the solution space is populated with <b>invalid</b> constructions.
+                        For example: overlapping bricks, floating bricks, bricks spanning out of the provided resolution.
+                        Moreover, some constructions might share high similarity, but one should be preferred to another in terms of <b>stability</b>.
+                    </div><br>
+                    <div>
+                        It's clear that addressing the problem globally is unfeasible, hence why I've opted for a <b>greedy solution</b>.</div>
+                        <br>
+
+                    <div style="display: flex; align-items: start; justify-content: space-between; margin-top: 20px; width: 100%;">
+                        
+                        <figure style="text-align: left; margin: 0;">
+                            <div style="display: flex; gap: 5px;">
+                                <img src="/assets/brickformer/brick0.png" height="110">
+                                <img src="/assets/brickformer/brick1.png" height="110">
+                                <img src="/assets/brickformer/brick2.png" height="110">
+                                <img src="/assets/brickformer/brick3.png" height="110">
+                                <img src="/assets/brickformer/brick4.png" height="110">
+                                <img src="/assets/brickformer/brick5.png" height="110">
+                            </div>
+                            <div style="display: flex; gap: 5px; margin-top: 5px;">
+                                <img src="/assets/brickformer/brick6.png" height="110">
+                                <img src="/assets/brickformer/brick7.png" height="110">
+                                <img src="/assets/brickformer/brick8.png" height="110">
+                                <img src="/assets/brickformer/brick9.png" height="110">
+                                <img src="/assets/brickformer/brick10.png" height="110">
+                                <img src="/assets/brickformer/brick11.png" height="110">
+                            </div>
+                            <figcaption style="margin-top: 4px">Samples from the available bricks set $\mathbb{B}$.
+                                Each rotation is considered a separate brick.</figcaption>
+                        </figure>
+
+                        
+                        
+
+                        <figure style="text-align: left; margin: 0;">
+                            <div style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; background: rgba(255,255,255,0.05); padding: 5px; border-radius: 4px;">
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #05131D; border: 1px solid rgba(255,255,255,0.2);" title="Black"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #0055BF; border: 1px solid rgba(255,255,255,0.2);" title="Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #237841; border: 1px solid rgba(255,255,255,0.2);" title="Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #008F9B; border: 1px solid rgba(255,255,255,0.2);" title="Dark Turquoise"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #C91A09; border: 1px solid rgba(255,255,255,0.2);" title="Red"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #C870A0; border: 1px solid rgba(255,255,255,0.2);" title="Dark Pink"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #583927; border: 1px solid rgba(255,255,255,0.2);" title="Brown"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #9BA19D; border: 1px solid rgba(255,255,255,0.2);" title="Light Gray"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #6D6E5C; border: 1px solid rgba(255,255,255,0.2);" title="Dark Gray"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #4B9F4A; border: 1px solid rgba(255,255,255,0.2);" title="Bright Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FC97AC; border: 1px solid rgba(255,255,255,0.2);" title="Pink"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #F2CD37; border: 1px solid rgba(255,255,255,0.2);" title="Yellow"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FFFFFF; border: 1px solid rgba(255,255,255,0.2);" title="White"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FBE696; border: 1px solid rgba(255,255,255,0.2);" title="Light Yellow"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #E4CD9E; border: 1px solid rgba(255,255,255,0.2);" title="Tan"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #C9CAE2; border: 1px solid rgba(255,255,255,0.2);" title="Light Violet"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #81007B; border: 1px solid rgba(255,255,255,0.2);" title="Purple"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FE8A18; border: 1px solid rgba(255,255,255,0.2);" title="Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #923978; border: 1px solid rgba(255,255,255,0.2);" title="Magenta"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #BBE90B; border: 1px solid rgba(255,255,255,0.2);" title="Lime"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #958A73; border: 1px solid rgba(255,255,255,0.2);" title="Dark Tan"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #E4ADC8; border: 1px solid rgba(255,255,255,0.2);" title="Bright Pink"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #AC78BA; border: 1px solid rgba(255,255,255,0.2);" title="Medium Lavender"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #E1D5ED; border: 1px solid rgba(255,255,255,0.2);" title="Lavender"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #F3CF9B; border: 1px solid rgba(255,255,255,0.2);" title="Very Light Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #CD6298; border: 1px solid rgba(255,255,255,0.2);" title="Light Purple"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #582A12; border: 1px solid rgba(255,255,255,0.2);" title="Reddish Brown"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #A0A5A9; border: 1px solid rgba(255,255,255,0.2);" title="Light Bluish Gray"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #6C6E68; border: 1px solid rgba(255,255,255,0.2);" title="Dark Bluish Gray"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #5A93DB; border: 1px solid rgba(255,255,255,0.2);" title="Medium Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #73DCA1; border: 1px solid rgba(255,255,255,0.2);" title="Medium Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #F6D7B3; border: 1px solid rgba(255,255,255,0.2);" title="Light Nougat"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #AA7D55; border: 1px solid rgba(255,255,255,0.2);" title="Medium Nougat"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #3F3691; border: 1px solid rgba(255,255,255,0.2);" title="Dark Purple"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #7C503A; border: 1px solid rgba(255,255,255,0.2);" title="Light Brown"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #4C61DB; border: 1px solid rgba(255,255,255,0.2);" title="Royal Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #D09168; border: 1px solid rgba(255,255,255,0.2);" title="Nougat"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #6874CA; border: 1px solid rgba(255,255,255,0.2);" title="Medium Bluish Violet"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #B3D7D1; border: 1px solid rgba(255,255,255,0.2);" title="Aqua"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #F9BA61; border: 1px solid rgba(255,255,255,0.2);" title="Light Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #9CA3A8; border: 1px solid rgba(255,255,255,0.2);" title="Pearl Light Gray"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #E6E3E0; border: 1px solid rgba(255,255,255,0.2);" title="Very Light Bluish Gray"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #DFEEA5; border: 1px solid rgba(255,255,255,0.2);" title="Yellowish Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #898788; border: 1px solid rgba(255,255,255,0.2);" title="Flat Silver"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #F8BB3D; border: 1px solid rgba(255,255,255,0.2);" title="Bright Light Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #9FC3E9; border: 1px solid rgba(255,255,255,0.2);" title="Bright Light Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FFF03A; border: 1px solid rgba(255,255,255,0.2);" title="Bright Light Yellow"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #0A3463; border: 1px solid rgba(255,255,255,0.2);" title="Dark Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #184632; border: 1px solid rgba(255,255,255,0.2);" title="Dark Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #352100; border: 1px solid rgba(255,255,255,0.2);" title="Dark Brown"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #720E0F; border: 1px solid rgba(255,255,255,0.2);" title="Dark Red"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #078BC9; border: 1px solid rgba(255,255,255,0.2);" title="Dark Azure"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #36AEBF; border: 1px solid rgba(255,255,255,0.2);" title="Medium Azure"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #ADC3C0; border: 1px solid rgba(255,255,255,0.2);" title="Light Aqua"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #9B9A5A; border: 1px solid rgba(255,255,255,0.2);" title="Olive Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #BBA53D; border: 1px solid rgba(255,255,255,0.2);" title="Chrome Gold"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #D67572; border: 1px solid rgba(255,255,255,0.2);" title="Sand Red"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #F785B1; border: 1px solid rgba(255,255,255,0.2);" title="Medium Dark Pink"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #A0BCAC; border: 1px solid rgba(255,255,255,0.2);" title="Sand Green"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #6074A1; border: 1px solid rgba(255,255,255,0.2);" title="Sand Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FFA70B; border: 1px solid rgba(255,255,255,0.2);" title="Medium Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #A95500; border: 1px solid rgba(255,255,255,0.2);" title="Dark Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FF698F; border: 1px solid rgba(255,255,255,0.2);" title="Coral"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #5AC4DA; border: 1px solid rgba(255,255,255,0.2);" title="Pastel Blue"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #EBD800; border: 1px solid rgba(255,255,255,0.2);" title="Vibrant Yellow"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #FFCB78; border: 1px solid rgba(255,255,255,0.2);" title="Warm Yellowish Orange"></div>
+                                
+                                    <div style="width: 18px; height: 18px; background-color: #CA4C0B; border: 1px solid rgba(255,255,255,0.2);" title="Reddish Orange"></div>
+                                
+                            </div>
+                            <figcaption style="margin-top: 4px">Colors set $\mathbb{C}$.
+                        </figure>
+                    </div>
+            </section>
+
+            
+            
+            
+
+            
+            <section data-transition="slide-in none-out">
+                <h2 style="margin-bottom: 10px">The greedy algorithm</h2>
+                <h4 style="margin-top: 0">Bottom-up, slice-by-slice construction</h4>
+                <div>
+                    In real life, LEGO constructions are built bottom-up, hence I decided having the tool doing the same.<br>
+                    <br>
+                    The model is first sliced into $\mathcal{R}_y$ <b>slices</b>,
+                    and each slice is processed incrementally.
+                    In this way we can strip the height dimension from the search space:
+                    <div>
+                        \[\begin{aligned}
+                            | \hat{\mathbb{P}} | = \left| \mathcal{R}_x \times \mathcal{R}_z \times \mathbb{B} \times \mathbb{C} \right|
+                        \end{aligned} \]
+                    </div>
+
+                    <div>
+                    Putting in practical numbers, the number of available bricks is $|\mathbb{B}| = 22$, and the colors are $|\mathbb{C}| = 67$. If we constrain the resolution $\mathcal{R}_{\{x,z\}}$ to $\{1, ..., 150\}$, the worst case solution space would be:
+                    
+                    \[\begin{aligned}
+                        150 \times 150 \times 22 \times 67 = 33165000
+                    \end{aligned} \]
+
+                    For each, we evaluate the similarity function,
+                    leading to a final algorithm that would be already treatable by modern GPUs (possibly chunked in multiple kernel dispatches).<br>
+                    <br>
+                    However, we still didn't get rid of <b>invalid solutions</b>: some solutions could have overlapping bricks,
+                    floating bricks or bricks spanning out of the conversion grid.
+                    While checking if a brick is floating or out of bounds is simpler in the 2D case (and could be done when evaluating the similarity function), <u>checking if bricks of the same solution are overlapping is not trivial</u> as it requires a second pass and additional storage. 
+                    </div>
+
+                    <div style="display: flex; justify-content: center; text-align: center; margin-top: 20px; gap: 20px;">
+                        <figure style="margin: 0; width: min-content;">
+                            <img src="/assets/brickformer/slice_ok.png">
+                            <figcaption style="margin-top: 8px">The slice solution is <span style="color: green">valid</span>.</figcaption>
+                        </figure>
+                        <figure style="margin: 0; width: min-content;">
+                             <img src="/assets/brickformer/slice_oob.png">
+                            <figcaption style="margin-top: 8px">The slice solution has a placement <span style="color: red">out of bounds</span>.
+                            </figcaption>
+                        </figure>
+                        <figure style="margin: 0; width: min-content;">
+                            <img src="/assets/brickformer/slice_overlapping.png">
+                            <figcaption style="margin-top: 8px">The slice solution has an <span style="color: red">overlapping</span> placement.
+                            </figcaption>
+                        </figure>
+                    </div>
+            </section>
+
+            <section>
+                <h2>Slicing the model</h2>
+                <h4 style="margin-top: 0"></h4>
+                <div>
+                    Whenever a new slice is processed for a given $y \in [0, \mathcal{R}_y[$, the model is sliced and voxelized for that $y$.<br>
+                    <br>
+                    A kernel is dispatched with one invocation for every triangle.
+                    The world-space triangle is intersected against a box representing a voxel of the current slice.
+                    If the intersection test succeeds, the voxel is filled with the interpolated triangle's color.<br>
+                    <div style="text-align: center">
+                        <figure>
+                            <img src="/assets/brickformer/triboxclipping.gif" width="250">
+                            <figcaption>Intersection test between the model's triangle and AABB.</figcaption>
+                        </figure>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; text-align: center; gap: 5px;">
+                        <figure style="margin: 0;">
+                            <img src="/assets/brickformer/input_model.png" height="100">
+                            <figcaption>Input model</figcaption>
+                        </figure>
+                        <figure style="margin: 0;">
+                            <img src="/assets/brickformer/slice0.png" height="100" style="image-rendering: pixelated;">
+                            <figcaption>Slice 0</figcaption>
+                        </figure>
+                        <figure style="margin: 0;">
+                            <img src="/assets/brickformer/slice1.png" height="100" style="image-rendering: pixelated;">
+                            <figcaption>Slice 1</figcaption>
+                        </figure>
+                        <figure style="margin: 0;">
+                            <img src="/assets/brickformer/slice2.png" height="100" style="image-rendering: pixelated;">
+                            <figcaption>Slice 2</figcaption>
+                        </figure>
+                        <figure style="margin: 0;">
+                            <img src="/assets/brickformer/slice3.png" height="100" style="image-rendering: pixelated;">
+                            <figcaption>Slice 3</figcaption>
+                        </figure>
+                        <figure style="margin: 0; display: flex; flex-direction: column; justify-content: flex-end;">
+                            <figcaption>...</figcaption>
+                        </figure>
+                    </div>
+            </section>
+
+            
+             <section data-transition="slide-in none-out">
+                <h2 style="margin-bottom: 10px">The greedy algorithm</h2>
+                <h4 style="margin-top: 0">Placement-by-placement construction</h4>
+                <div>
+                    Another insight is that LEGO constructions are built <b>brick-by-brick</b> and typically consecutive placements are illustrated close to each other.<br>
+                    <br>
+                    This inspired me for the final algorithm:
+                    starting from a state $\mathcal{S}_i$ of the construction, all possible placements $\pi$ within the slice are evaluated. Among these, it is picked the placement $\pi^*$ which evaluates the highest to a hand-crafted <b>placement score function $f_{\mathcal{S}_i}$</b>.
+
+                    \[\begin{aligned}
+                        \pi^* = \arg\max_{\pi \in \mathbb{P}^2} f_{\mathcal{S}_i}(\pi)
+                    \end{aligned} \]
+
+                    Once the placement is selected, it is added to the construction:
+
+                        \[\begin{aligned}
+                        \mathcal{S}_{i+1} \leftarrow \mathcal{S}_i \cup \pi^*
+                    \end{aligned} \]
+
+                    The process is repeated within the current slice, until the best score remains above a pre-defined threshold $\tau_f$.
+                    When this condition is false, it restarts for the next slice until the full height of the construction ($\mathcal{R}_y$) is reached.<br>
+                    <br>
+                    <div style="text-align: center">
+                    <figure style="margin: 0;">
+                        <video autoplay="autoplay" data-autoplay="true" loop="loop" muted="muted" playsinline="playsinline" src="/assets/brickformer/placementbyplacement.mp4"
+                        style="pointer-events: none;" width="350"></video>
+                        <figcaption></figcaption>
+                    </figure>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section data-transition="none-in slide-out">
+                <h2 style="margin-bottom: 10px">The greedy algorithm</h2>
+                <h4 style="margin-top: 0">Placement score function</h4>
+                <div>
+                    <b>The score function was designed empirically</b>.<br> 
+                    After several experiments with different measures,
+                    I ended up with:
+
+                    \[\begin{aligned}
+                        h_n = 1 - \dfrac{h}{3 \cdot 255} 
+                    \end{aligned} \]
+                    \[\begin{aligned}
+                        f_{\mathcal{S}_i}(\pi) = \dfrac{b}{B} \cdot \left( \dfrac{d}{b} + \operatorname{sigmoid}( 32 \cdot (h_n - 0.130) ) \right) + (0.8 \cdot \dfrac{c}{b} + 0.2) 
+                    \end{aligned} \]
+
+                    Where:
+                    <ul>
+                        <li>$b$ is the size of the brick.</li>
+                        <li>$B$ is the maximum brick size.</li>
+                        <li>$d$ is the number of <u>different</u> placements on the previous slice that this placement connects.</li>
+                        <li>$h$ is the Manhattan RGB distance between the brick and the model.</li>
+                        <li>$c$ is the number of voxels filled by the model's slice, that this placement covers.</li>
+                    </ul>
+
+                    <br>
+                    As it can be deduced from the above, each variable encodes a <b>local</b> similarity and stability:
+                    <ul>
+                        <li>$b$: the larger the brick, the better. This improves <b>stability</b>.</li>
+                        <li>$d$: the more diverse placements are connected on the previous slice, the more <b>stable</b> it is. For example, avoids making same brick piles.</li>
+                        <li>$h$: addresses <b>color similarity</b>.</li>
+                        <li>$c$: addresses <b>structural similarity</b>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            
+            
+            
+            <section data-transition="slide-in none-out">
+                <h1>Placement Solver implementation</h1>
+
+                <div>
+                    As mentioned, to compute the next placement, the whole solution space is explored.
+                    In the actual implementation, the color is assigned later.<br>
+                    <br>
+                    I've used the <b>global warp ID</b> instead of the global invocation ID,
+                    the reason is the latter would neglect warp intrinsics that are useful when
+                    having to iterate all cells covered by the placement.<br>
+                    <br> 
+                    The global warp ID is expanded into a 3-dimensional coordinate:
+                    the XZ of the placement and the brick ID (the type of brick).
+
+      <pre><code data-trim class="language-cpp">
+__global__ float eval_score(size_t num_possible_placements, ...)
+{
+    int i = blockIdx.x * 32 + threadIdx.x / 32; // Global warp ID = Placement ID
+    if (i >= num_possible_placements) return;
+
+    Placement& placement = placements[i];
+    placement = {};
+    placement.bid = i % NUM_BRICKS;
+    placement.x = (i / NUM_BRICKS) % RESOLUTION_X;
+    placement.z = i / (RESOLUTION_X * NUM_BRICKS);
+
+    // ...
+</code>
+</pre>
+                </div>
+            </section>
+
+            
+            <section data-transition="none-in none-out">
+                <h1>Placement Solver implementation</h1>
+                <div>
+                
+<pre><code data-trim class="language-cpp">
+__device__ bool is_outside_or_overlapping(placement, current_placements)
+{
+    __shared__ int result[32];
+
+    int warp_idx = threadIdx.x >> 5;
+    if (IS_FIRST_WARP) result[warp_idx] = false;
+    __syncwarp();
+
+    const auto& brick = bricks[placement.bid]; // float[16][16]
+    // Iterate the cells covered by the brick in parallel
+    iterate_brick_grid([&](int bx, int by) {
+        if (brick[by][bx]) {
+            int mx = placement.x + bx;
+            int my = placement.z + by;
+
+            bool out_of_bounds = mx < 0 || mx >= RESOLUTION_X || my < 0 || my >= RESOLUTION_Y;
+            bool overlapping = current_placements.read_pixel(mx, my).x != NO_PLACEMENT_VALUE;
+            if (out_of_bounds || overlapping) atomicOr_block(&result[warp_idx], true);
+        }
+    });
+    __syncwarp();
+
+    return result[warp_idx];
+}
+</code>
+</pre>
+
+We early return if the placement is invalid.
+
+<pre><code data-trim class="language-cpp">
+    // ... eval_reward
+
+    if (is_outside_or_overlapping(placement)) return;
+
+    // ...
+</code>
+</pre>
+                </div>
+            </section>
+
+            
+            <section data-transition="none-in slide-out">
+                <h1>Placement Solver implementation</h1>
+
+                <div>
+                    Several measures for the <code>placement</code> are evaluated and aggregated into a final score.<br>
+                    <br>
+                    Other heuristics are taken:
+                    <ul>
+                        <li>"hole filling" placements are prioritized to avoid, for example, gaps in a flat surface</li>
+                        <li>Degeneration of the shape is avoided by not selecting placements that don't intersect the model <i>enough</i></li>
+                    </ul>
+
+      <pre><code data-trim class="language-cpp">
+    float b = eval_brick_size(placement.brick_id);
+    float c = eval_colormap_coverage(placement, voxelized_model_slice);
+    float d = eval_connected_bricks(placement, prev_slice);
+    float h = eval_colormap_rgb_distance(placement, voxelized_model_slice);
+
+    float bn = float(b) / float(BRICK_MAX_EXTENT_X * BRICK_MAX_EXTENT_Z);
+    float cn = float(c) / float(b);
+    float dn = float(d) / float(b);
+    float hn = std::max(h, 0);
+    hn = sigmoid(16.0f * 2.0f * (hn - 0.13071895f)) / (3.0f * 255.0f); // Empirical
+    hn = 1.0f - hn;
+
+    // If the placement doesn't intersect any model's voxel,
+    // it is only allowed to fill holes!
+    if (c == 0) {
+        return is_filling_hole(placement) ? bn : -INFINITY;
+    }
+
+    // If the placement doesn't cover enough model's voxels, it is discarded
+    if (cn < 0.2f) return -INFINITY;
+
+    // Final score
+    return bn * (dn + hn) + (0.8f * cn + 0.2f);
+</code>
+</pre>
+                </div>
+            </section>
+
+            
+            <section>
+                <h1>LEGO Renderer</h1>
+
+                A simple renderer of the LEGO model, wouldn't show a clear distinction of the bricks (Figure 1)<br>
+                <br>
+                It was fundamental to draw a border around different placements and around the studs, to aid understanding of the brick size.
+                The way I solved this issue is through <b>deferred rendering</b>.
+                The scene is first drawn into a <b>gbuffer</b> which hosts:
+                <ul>
+                    <li>the placement color</li>
+                    <li>the depth map</li>
+                    <li>the <b>outline guide</b></li>
+                </ul>
+                The <b>outline guide</b> is what is used to generate the outline.<br>
+                <br>
+                It is an integer number, that is different for every placement, and is different between the studs on top of the placement.
+                When the <b>gbuffer</b> is ultimately drawn to screen, a convolution operation is performed: if at least one pixel within the kernel has a different outline guide, the central pixel is the outline and is set to be black.
+
+                <div style="display: flex; align-items: start; justify-content: center; margin-top: 20px; width: 100%; gap: 30px;">
+                    <figure style="margin: 0; width: min-content; text-align: center;">
+                        <img style="border: 1px solid black" src="/assets/brickformer/legorenderer_nooutline.png" height="200">
+                        <figcaption style="margin-top: 8px"><b>Figure 1.</b> Simple rendering of the LEGO construction. Different bricks are indistinguishable.</figcaption>
+                    </figure>
+                    <figure style="margin: 0; width: min-content; text-align: center;">
+                        <img style="border: 1px solid black" src="/assets/brickformer/legorenderer_outline.png" height="200">
+                        <figcaption style="margin-top: 8px"><b>Figure 2.</b> Outline rendering.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            
+            <section>
+                <h1>App architecture</h1>
+                <div>
+                    The app launches 2 threads, the <b>main thread</b> that is used for visualization (OpenGL 4.6);
+                    and the <b>sync thread</b> that ensures the local software version matches the latest version,
+                    and checks the validity of the Firebase authentication token.<br>
+                    <br>
+                    <u>Don't get inspiration from this to authenticate users in your application.</u><br>
+                    <br>
+                    When the conversion starts, a <b>conversion thread</b> is launched.
+                    This thread fires events to the main thread while the conversion is in progress.
+                    An example of an event is <b>slice completion</b>,
+                    this will trigger the generation of brick vertices,
+                    that are baked to a GPU vertex buffers,
+                    to progress the visualization of the LEGO construction.
+                </div>
+
+                <figure style="text-align: center;">
+                    <img src="/assets/brickformer/arch_schema.svg">
+                    <figcaption style="margin-top: 8px">
+                    </figcaption>
+                </figure>
+            </section>
+
+            
+            
+            
+            <section class="center" data-transition="convex" style="text-align: center">
+                <h2 style="margin-bottom: 10px">Thanks!</h2>
+                <h4 style="margin-top: 0">For any feedback, you can contact me at
+<a href="mailto:support@brickformer.io">support@brickformer.io</a> <a href=""></h4>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/math/math.min.js" integrity="sha512-tdpe8NdPiaypY/eUgKqr/aL5y0tLiFEde/joBsD4bfjyB8yNuGsReuN/D+XDcGbHQ8/xbDbJ0mqkfGdh2JxCAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js" integrity="sha512-IkPzJ3njtxNL2Frm7zr18CEj9HH+CEFAqh+jSKjXTHVFGtWG1+USbIXINU8zdGmyLpf/OBIVfpNLGNgwhlymkA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    
+
+    <script>
+        Reveal.initialize({
+          mathjax4: {
+    mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
+    tex: {
+      inlineMath: [
+        ['$', '$'],
+        ['\\(', '\\)'],
+      ],
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    },
+  },
+            hash: true,
+            slideNumber: true,
+            center: false,
+            plugins: [
+            RevealMath.MathJax3,
+            RevealHighlight]
+        });
+    </script>
+</body>
+</html>
