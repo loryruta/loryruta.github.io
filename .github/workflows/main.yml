@@ -1,20 +1,30 @@
-name: "Copy built website"
+name: "Build and Deploy Website"
 
 on:
   push:
     branches: ["master"]
-    paths:
-      - "_site/**"
 
 jobs:
-  copy-site:
-    name: "Copy built site"
+  build-and-deploy:
+    name: "Build and Deploy"
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: "Update gh-pages"
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Website
+        run: npx @11ty/eleventy --input=src --output=_site
+
+      - name: "Update gh-pages branch"
         run: |
           git clone https://github.com/$GITHUB_REPOSITORY.git --branch gh-pages --single-branch gh-pages
           cp -r ./_site/* gh-pages/
@@ -24,7 +34,7 @@ jobs:
           git add .
           git commit -m "Update gh-pages" -a || true
 
-      - name: "Push gh-pages"
+      - name: "Push to gh-pages"
         uses: ad-m/github-push-action@master
         with:
           branch: gh-pages
