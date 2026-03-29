@@ -719,6 +719,18 @@ We early return if the placement is invalid.
             RevealMath.MathJax3,
             RevealHighlight]
         });
+
+        // Restart videos when a slide is revealed
+        const restartVideos = (event) => {
+            const videos = event.currentSlide.querySelectorAll('video');
+            videos.forEach(video => {
+                video.currentTime = 0;
+                video.play().catch(e => console.error("Video play failed:", e));
+            });
+        };
+
+        Reveal.on('slidechanged', restartVideos);
+        Reveal.on('ready', restartVideos);
     </script>
 </body>
 </html>
