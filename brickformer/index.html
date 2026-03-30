@@ -36,7 +36,7 @@
 
             <section class="center">
                 <div>
-                    BrickFormer was a <b>toy project</b>, it is the result of my passion for Computer Graphics, GPU Computing and LEGO's.<br>
+                    BrickFormer is <b>toy project</b>. It is the result of my passion for Computer Graphics, GPU Computing and LEGO's.<br>
                     After I had the idea, I was deeply challenged by the complexity of the problem, and my hobby during university time became trying to find a method to solve it.</div>
                 <div style="margin-top: 20px">
                 <video autoplay loop muted playsinline src="/assets/brickformer/user_conversion.mp4" style="width: 100%"></video>
@@ -52,7 +52,7 @@
                 <h4 style="margin-top: 0">Upload the model</h4>
                 <p>
                     The user uploads a <b>3D model</b> (picked for example from <a href="https://sketchfab.com/3d-models/popular" target="_blank">Sketchfab</a>).
-                    The supported input formats are <b>.gltf</b> and <b>.glb</b>.<br>
+                    The supported formats are <b>.gltf</b> and <b>.glb</b>.<br>
                     These are general purpose formats to which any other can typically convert to.
                 </p>
                 <img src="/assets/brickformer/user_model.png" style="width: 100%">
@@ -62,8 +62,9 @@
                 <h2 style="margin-bottom: 10px">User pipeline</h2>
                 <h4 style="margin-top: 0">Choose the model orientation</h4>
                 <p>
-                    The <b>model orientation</b> can be any, depending on the tool that was used to craft the model.
-                    Hence why we provide a functionality to define the up axis and to flip axes. 
+                    The <b>model orientation</b> can be any.<br>
+                    This depends on which tool was used to craft the model.
+                    Hence why I've provided a functionality to define the up axis and to flip axes. 
                 </p>
                 <video autoplay loop muted playsinline src="/assets/brickformer/user_orientation_adjust.mp4" style="width: 100%"></video>
             </section>
@@ -82,7 +83,7 @@
                 <h2 style="margin-bottom: 10px">User pipeline</h2>
                 <h4 style="margin-top: 0">Choose the colors to use</h4>
                 <p>
-                    We support all common LEGO <b>brick colors</b> available on the market.
+                    I support all common LEGO <b>brick colors</b> available on the market.
                     Via UI, it is possible to exclude colors that must not be used during the conversion,
                     hence defining a custom palette.
                 </p>
@@ -116,8 +117,10 @@
                 
                 <h2>Problem statement</h2>
                 <div>
-                    The problem that BrickFormer aims to solve, is to maximize the <b>similarity</b> between a LEGO construction $\mathcal{p}$ and a target 3D model $\mathcal{M}$.
-                    The similarity is defined in terms of shape and color. The "LEGO construction" has a given resolution and is a combination of bricks drawn from a provided discrete set. Among the possible combinations some of them are not valid.
+                    The problem that BrickFormer aims to solve, is to maximize the <b>similarity</b> between a LEGO construction $\mathcal{p}$ and a target 3D model $\mathcal{M}$.<br>
+                    <br>
+                    The similarity is defined in terms of <b>shape</b> and <b>color</b>.
+                    The "LEGO construction" has a given resolution and is a combination of bricks drawn from a provided discrete set. Among the possible combinations some of them are invalid.
                 </div>
                 <div>
                     \[\begin{aligned}
@@ -148,8 +151,9 @@
                 <h4 style="margin-top: 0">The solution space</h4>
                     <div>
                         <p>
-                        To simplify the problem, the set of available bricks $\mathbb{B}$ is made of standard LEGO bricks (as shown below). Different rotations of these bricks are treated as different bricks. Placements locations are binned in voxels within a 3D grid defined by the input resolution $\mathcal{R}$.
-                        Nonetheless these simplifications, the solution space $\mathbb{P}$ remains discrete and insanely large.
+                        To simplify the problem, the set of available bricks $\mathbb{B}$ is made of standard LEGO bricks (as shown in Figure 1). Different rotations of these bricks are treated as different bricks. Placements locations are binned in voxels within a 3D grid defined by the input resolution $\mathcal{R}$.<br>
+                        <br>
+                        Despite these simplifications, the solution space $\mathbb{P}$ remains insanely large:
                         For every voxel, any combination of bricks could be placed, and of any color.
                         The cardinality would be:</p>
                         <div>
@@ -187,7 +191,7 @@
                                 <img src="/assets/brickformer/brick10.png" height="110">
                                 <img src="/assets/brickformer/brick11.png" height="110">
                             </div>
-                            <figcaption style="margin-top: 4px">Samples from the available bricks set $\mathbb{B}$.
+                            <figcaption style="margin-top: 4px"><b>Figure 1.</b> Samples from the available bricks set $\mathbb{B}$.
                                 Each rotation is considered a separate brick.</figcaption>
                         </figure>
 
@@ -332,7 +336,7 @@
                                     <div style="width: 18px; height: 18px; background-color: #CA4C0B; border: 1px solid rgba(255,255,255,0.2);" title="Reddish Orange"></div>
                                 
                             </div>
-                            <figcaption style="margin-top: 4px">Colors set $\mathbb{C}$.
+                            <figcaption style="margin-top: 4px"><b>Figure 2.</b> Colors set $\mathbb{C}$.
                         </figure>
                     </div>
             </section>
@@ -444,7 +448,7 @@
                     starting from a state $\mathcal{S}_i$ of the construction, all possible placements $\pi$ within the slice are evaluated. Among these, it is picked the placement $\pi^*$ which evaluates the highest to a hand-crafted <b>placement score function $f_{\mathcal{S}_i}$</b>.
 
                     \[\begin{aligned}
-                        \pi^* = \arg\max_{\pi \in \mathbb{P}^2} f_{\mathcal{S}_i}(\pi)
+                        \pi^* = \arg\max_{\pi \in \hat{\mathbb{P}}} f_{\mathcal{S}_i}(\pi)
                     \end{aligned} \]
 
                     Once the placement is selected, it is added to the construction:
@@ -514,7 +518,7 @@
                     <br>
                     I've used the <b>global warp ID</b> instead of the global invocation ID,
                     the reason is the latter would neglect warp intrinsics that are useful when
-                    having to iterate all cells covered by the placement.<br>
+                    having to iterate all cells covered by a single placement.<br>
                     <br> 
                     The global warp ID is expanded into a 3-dimensional coordinate:
                     the XZ of the placement and the brick ID (the type of brick).
@@ -522,14 +526,13 @@
       <pre><code data-trim class="language-cpp">
 __global__ float eval_score(size_t num_possible_placements, ...)
 {
-    int i = blockIdx.x * 32 + threadIdx.x / 32; // Global warp ID = Placement ID
-    if (i >= num_possible_placements) return;
+    int warp_id = blockIdx.x * 32 + threadIdx.x / 32; // Global warp ID = Placement ID
+    if (warp_id >= num_possible_placements) return;
 
-    Placement& placement = placements[i];
-    placement = {};
-    placement.bid = i % NUM_BRICKS;
-    placement.x = (i / NUM_BRICKS) % RESOLUTION_X;
-    placement.z = i / (RESOLUTION_X * NUM_BRICKS);
+    Placement placement{};
+    placement.bid = warp_id % NUM_BRICKS; // Brick ID
+    placement.x = (warp_id / NUM_BRICKS) % RESOLUTION_X;
+    placement.z = warp_id / (RESOLUTION_X * NUM_BRICKS);
 
     // ...
 </code>
@@ -541,6 +544,8 @@ __global__ float eval_score(size_t num_possible_placements, ...)
             <section data-transition="none-in none-out">
                 <h1>Placement Solver implementation</h1>
                 <div>
+                
+                We early return if the placement is invalid (outside or overlapping).
                 
 <pre><code data-trim class="language-cpp">
 __device__ bool is_outside_or_overlapping(placement, current_placements)
@@ -569,9 +574,6 @@ __device__ bool is_outside_or_overlapping(placement, current_placements)
 }
 </code>
 </pre>
-
-We early return if the placement is invalid.
-
 <pre><code data-trim class="language-cpp">
     // ... eval_reward
 
@@ -580,6 +582,7 @@ We early return if the placement is invalid.
     // ...
 </code>
 </pre>
+                It is later checked if the placement is floating too (not shown).
                 </div>
             </section>
 
@@ -592,8 +595,8 @@ We early return if the placement is invalid.
                     <br>
                     Other heuristics are taken:
                     <ul>
-                        <li>"hole filling" placements are prioritized to avoid, for example, gaps in a flat surface</li>
-                        <li>Degeneration of the shape is avoided by not selecting placements that don't intersect the model <i>enough</i></li>
+                        <li><b>"hole filling"</b> placements are prioritized to avoid, for example, gaps in a flat surface</li>
+                        <li><b>Degeneration</b> of the shape is avoided by not selecting placements that don't intersect the model <i>enough</i></li>
                     </ul>
 
       <pre><code data-trim class="language-cpp">
@@ -629,20 +632,20 @@ We early return if the placement is invalid.
             <section>
                 <h1>LEGO Renderer</h1>
 
-                A simple renderer of the LEGO model, wouldn't show a clear distinction of the bricks (Figure 1)<br>
+                A simple renderer of the LEGO model, wouldn't show a clear distinction of the bricks (see Figure 1)<br>
                 <br>
                 It was fundamental to draw a border around different placements and around the studs, to aid understanding of the brick size.
                 The way I solved this issue is through <b>deferred rendering</b>.
                 The scene is first drawn into a <b>gbuffer</b> which hosts:
                 <ul>
-                    <li>the placement color</li>
+                    <li>the albedo map</li>
                     <li>the depth map</li>
                     <li>the <b>outline guide</b></li>
                 </ul>
                 The <b>outline guide</b> is what is used to generate the outline.<br>
                 <br>
                 It is an integer number, that is different for every placement, and is different between the studs on top of the placement.
-                When the <b>gbuffer</b> is ultimately drawn to screen, a convolution operation is performed: if at least one pixel within the kernel has a different outline guide, the central pixel is the outline and is set to be black.
+                When the <b>gbuffer</b> is ultimately drawn to screen, a <b>convolution operation</b> is performed: if at least one pixel within the kernel has a different outline guide, the central pixel is the outline and is set to be black.
 
                 <div style="display: flex; align-items: start; justify-content: center; margin-top: 20px; width: 100%; gap: 30px;">
                     <figure style="margin: 0; width: min-content; text-align: center;">
@@ -670,7 +673,7 @@ We early return if the placement is invalid.
                     This thread fires events to the main thread while the conversion is in progress.
                     An example of an event is <b>slice completion</b>,
                     this will trigger the generation of brick vertices,
-                    that are baked to a GPU vertex buffers,
+                    that are then baked in a GPU vertex buffer 
                     to progress the visualization of the LEGO construction.
                 </div>
 
